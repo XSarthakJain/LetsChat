@@ -1,0 +1,885 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+
+  
+@font-face
+{
+  font-family: 'LetsChat', cursive;
+  src:url("{static 'fonts/static/GrenzeGotisch-ExtraBold.ttf'}");
+}
+
+
+@font-face
+{
+  font-family: 'LetsChat1';
+  src:url("{static 'fonts/static/GrenzeGotisch-Bold.ttf'}");
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+body{
+  background: #e1ecf2;
+  background-image:url('/static/images/body-light.jpg');
+  background-attachment: fixed;
+  padding:0!important;
+  margin:0!important;
+  overflow-x:hidden;
+}
+
+.container
+{
+  margin:0 auto;
+
+}
+
+.header-container
+{
+  position:fixed;
+  top:0px;
+  left:0px;
+  right:0px;
+  width:100%;
+  margin-top:-200px;
+  transition:all .4s;
+  z-index:10;
+
+  background-color:#fff ;
+}
+
+.header-container header
+{
+  margin-top:200px;
+  background-color:#fff ;
+}
+
+header
+{
+  display:flex;
+  flex-direction: column;
+  background-color:#fff ;
+
+  
+}
+
+.heading
+{
+  padding:24px 0 24px 10px;
+  box-shadow:0px 0px 23px 0px rgba(0,0,0,0.5);
+  z-index:1;
+}
+.heading #brand
+{
+  
+  color:#00a087;    
+  font-weight:bold;
+  cursor:pointer;
+  font-family:LetsChat;
+  font-style: cursive;
+  
+}
+
+
+.middleheading
+{
+  font-size:20px;
+  color:black;
+  font-family: LetsChat1;
+  font-weight:bold;
+  color:grey;
+  
+}
+
+/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+@media screen and (min-width: 601px) {
+  .heading #brand {
+    font-size: 30px;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  .heading #brand {
+    font-size: 25px;
+  }
+}
+
+
+/*
+header{ 
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  background-color:#E9ECEF;
+}
+
+
+#brand{
+    padding:16px;
+    color:#00a087;
+    margin-left:5%;
+    font-weight:bold;
+    padding:16px;
+    cursor:pointer;
+}
+*/
+
+
+#TextPost
+{
+  border:none;
+  border-radius:8px;
+}
+
+#TextPost:focus
+{
+  outline: none;
+}
+
+#leftFixDiv
+{
+  height:100%;
+  
+  position: fixed;
+  top:0px;
+  left:0px;
+  bottom:0px;
+  background-color: rgba(0, 150, 136, 0.6);
+
+}
+
+#rightSideDiv
+{
+  margin-left:22%;
+}
+
+.top-right{
+  border:2px solid #00a087;
+  padding:12px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left:8px;
+
+}
+
+#topsearchBox{
+  width: 80%;
+  padding:12px;
+  display:inline-block;
+  border:2px solid #00a087;
+  color:#00a087;
+  border:none;
+  border-right:none;
+}
+
+#searchBoxSectionContainer
+{
+  display:none;
+}
+
+#searchBoxSectionContainer :focus
+{
+  outline:none;
+}
+
+.fa-times-circle{
+  padding:16px;
+  border:2px solid #00a087;
+  border-radius:0 25px 25px 0;
+  margin-left:-30px;
+  background:#00a087;
+  color:red;
+
+}
+
+@media (max-width: 330px)
+{
+  .top-right
+  {
+    margin-left:4px;
+  }
+}
+
+
+@media (max-width: 750px)
+{
+  #PostOpt{
+    width:100%;
+    } 
+  #PostWrapper{
+    width:100%;
+  }
+
+  #postAllSectionId{
+    width:100%;
+  }
+
+  #rightSideDiv
+  {
+    width:95% !important;
+  }
+
+  #commentSendButtonId
+  {
+    margin-left:0 !important;
+  }
+}
+
+
+#profilePicImage{
+  width:55px;
+  height:55px;
+  border:2px solid white;
+  border-radius: 50%;
+  vertical-align: middle;
+  padding:5px;
+  margin-left:12px;
+}
+
+.maquee_text{
+  
+  color: white;
+  height: 2.5em;
+  padding:15px;
+  
+}
+
+.icon
+{
+  font-size:1em;
+  color:grey;
+  display: inline-block;
+  
+}
+
+.title
+{
+  color:white;
+  font-size:1em;
+  display: inline-block;
+  padding-left: 5px;
+}
+
+.sideOptionIconLink
+{
+  display: inline-block;
+  padding:5px;
+  margin-left:12px;
+  margin-top:8%;
+}
+
+@media (max-width: 750px)
+{
+  .title
+  {
+    display:none;
+  }
+
+  #leftFixDiv
+  {
+    width:20%;
+  }
+
+  marquee
+  {
+    display:none;
+  }
+}
+
+#PostWrapper{
+  background:rgba(191, 191, 191, 0.5);
+  width:90%;
+  padding-left:2%;
+}
+#PostOpt{
+  background:rgba(191, 191, 191, 0.5);
+  width:90%;
+}
+#Post_Icon_Cusomize{
+  padding-left:5%;
+  color:grey;padding-left:2%;font-size:1.5em;
+  padding:12px;
+  padding-bottom:2%;
+}
+
+#SubmitPost{
+  background:#0080ff;
+  color:white;
+  padding:8px 12px;
+  border:none;
+  float:right;
+  /*margin-right:2%;*/
+}
+
+
+#SubmitPost:focus
+{
+  outline:none;
+}
+
+.dropdown-toggle
+{
+  border:none;
+  background:#cbcccd;
+  color:rgba(0,150,136,0.8);
+  font-weight: bold;
+}
+
+.dropdown-toggle:focus
+{
+  outline:none;
+}
+
+
+.commentTextBox
+{
+  width:100%;
+  padding:8px;
+}
+
+.commentTextBox:focus
+{
+  outline:none;
+}
+
+.submitCommentButton
+{
+
+  background:rgba(0,150,136,0.8);
+  color:white;
+  width:100%;
+  border:none;
+  border-radius: none;
+  padding:10px;
+  margin-left:-28%;
+}
+
+.submitCommentButton:focus
+{
+  outline:none;
+}
+.PostResponseLike{
+
+   padding-left:5%;
+  color:grey;padding-left:2%;font-size:1.5em;
+  padding:12px;
+  padding-bottom:2%;
+
+}
+
+#PostResponseComment{
+
+  padding-left:5%;
+ color:grey;padding-left:2%;font-size:1.5em;
+ padding:12px;
+ padding-bottom:2%;
+
+}
+
+#PostAlert{
+  padding:2%;
+  width:100%;
+  background-color:rgba(191, 191, 191, 0.8);
+  margin-bottom: 2%;
+}
+
+
+.openBtn {
+  background: #f1f1f1;
+  border: none;
+  padding: 10px 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.openBtn:hover {
+  background: #bbb;
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0, 150, 136, 0.5);
+}
+
+.overlay-content {
+  position: relative;
+  top: 46%;
+  width: 80%;
+  text-align: center;
+  margin-top: 30px;
+  margin: auto;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+  cursor: pointer;
+  color: white;
+}
+
+.overlay .closebtn:hover {
+  color: #ccc;
+}
+
+.overlay input[type=text] {
+  padding: 15px;
+  font-size: 17px;
+  border: none;
+  float: left;
+  width: 80%;
+  background: white;
+}
+
+.overlay input[type=text]:hover {
+  background: #f1f1f1;
+}
+
+.overlay button {
+  float: left;
+  width: 20%;
+  padding: 15px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.overlay button:hover {
+  background: #bbb;
+}
+
+
+/*  LogOut Section  */
+.myOverlayLogOut{
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0, 150, 136, 0.5); 
+  border-radius:5px;
+}
+
+
+
+#logOutDiv{
+  background:#eee;
+  
+  border-radius:5px;
+  
+  color:rgba(0, 150, 136, 1);
+  font-weight: bold;
+  margin-bottom:2%;
+}
+
+#logOutDiv p{
+  padding-top:4%;
+  padding-bottom:2%;
+  cursor:pointer;
+}
+.overlay-content-logOut{
+  position: relative;
+  top: 20%;
+  width:50%;
+  text-align: center;
+  margin-top: 30px;
+  margin: auto;
+  padding:2%;
+  border-radius:8px;
+}
+
+/*Night Mode*/
+body {
+  background-color: grey;
+  color: black;
+}
+
+.dark-mode{
+  
+  background:grey;
+  color: white;
+}
+
+.day-mode{
+  background: #e1ecf2;
+  background-image:url('/static/images/body-light.jpg');
+  color: white;
+}
+
+/*Notification*/
+#noti_Container {
+    position:relative;
+}
+    
+/* A CIRCLE LIKE BUTTON IN THE TOP MENU. */
+#noti_Button {
+    -moz-border-radius:50%; 
+    -webkit-border-radius:50%;
+    cursor:pointer;
+}
+
+/* THE POPULAR RED NOTIFICATIONS COUNTER. */
+#noti_Counter {
+    display:block;
+    position:absolute;
+    background:#E1141E;
+    color:#FFF;
+    font-size:12px;
+    font-weight:normal;
+    padding:1px 3px;
+    margin:-8px 0 0 25px;
+    border-radius:2px;
+    -moz-border-radius:2px; 
+    -webkit-border-radius:2px;
+    z-index:1;
+}
+    
+/* THE NOTIFICAIONS WINDOW. THIS REMAINS HIDDEN WHEN THE PAGE LOADS. */
+#notifications {
+    margin-top: 6px;
+    display:none;
+    width:350px;
+    position:absolute;
+    top:30px;
+    right:0;
+    background:#FFF;
+    border:solid 1px rgba(100, 100, 100, .20);
+    -webkit-box-shadow:0 3px 8px rgba(0, 0, 0, .20);
+    z-index: 0;
+  
+}
+/* AN ARROW LIKE STRUCTURE JUST OVER THE NOTIFICATIONS WINDOW */
+#notifications:before {         
+    /*content: '';*/
+    display:block;
+    width:0;
+    height:0;
+    color:transparent;
+    border:10px solid #CCC;
+    border-color:transparent transparent  rgba(0, 150, 136, 1);
+    margin-top:-20px;
+    margin-left:10px;
+}
+    
+#noti_heading {
+    display:block;
+    color: rgba(0, 150, 136, 1); 
+    background:#FFF;
+    font-weight:bold;
+    font-size:13px;    
+    padding:8px;
+    margin:0;
+    border-bottom:solid 1px white;
+}
+    
+#seeAll {
+    background:#F6F7F8;
+    padding:8px;
+    font-size:12px;
+    font-weight:bold;
+    border-top:solid 1px  rgba(0, 150, 136, 1);
+    text-align:center;
+}
+#seeAll i {
+    color: rgba(0, 150, 136, 1);
+}
+#seeAll i:hover {
+    background:white;
+    color: rgba(0, 150, 136, 1);
+    text-decoration:underline;
+}
+
+/* body:after {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0);
+  transition: background-color .5s;
+}
+body:hover:after {
+  background-color: rgba(0,0,0,.5);   
+} */
+
+.storySection{
+  width:120px;
+  height:200px;border-radius:8px;
+  background:rgba(0, 150, 136, 0.8);position:relative;
+  overflow:hidden;
+}
+
+.storyInnerSection{
+  position:absolute;top:100px;left:35px;
+  overflow:hidden;
+  cursor:pointer;
+
+}
+
+.storyProfileSection{
+  width:50px;height:50px;border-radius:50%;border:2px solid rgba(0, 150, 136, 1);padding:5px;
+}
+
+
+
+.ModelstorySection{
+  width:100%;
+  height:100vh;border-radius:25px;
+  position:relative;
+  overflow:hidden;
+
+}
+
+.ModelstoryInnerSection{
+  position:absolute;
+  top:100px;
+  right:40%;
+  overflow:hidden;
+  cursor:pointer;
+  width:250px;
+  height:60vh;
+  border-radius:8px;
+  border:1px solid grey;
+  justify-content: center;  
+  box-shadow: 0 10px 20px grey, 0 10px 10px grey;
+
+}
+
+.ModelstoryProfileSection{
+  width:80px;height:80px;border-radius:50%;border:2px solid rgba(0, 150, 136, 1);padding:5px;
+}
+
+
+
+.storyPersonName{
+  text-align:center;
+  position:absolute;top:148px;left:0;
+}
+.storySection:hover{
+  background-color:green;
+  transform-style:preserve-3d;
+  transform:scale(1.02);
+  transition:all ease 0.3s;
+}
+
+.storyProfileSection:hover .storyInnerSection{
+  color:red;
+  transition:all ease 0.5s;
+}
+
+.no-indicators .carousel-indicators {
+  display: none;
+}
+
+
+.emojionearea, .emojionearea.form-control{
+width:90%;
+}
+
+#VisibleStoryBodySection
+{               
+
+                min-width:300px;
+                width:70%;
+                height:70vh;
+                background-repeat: no-repeat;
+                background-size: cover;
+                border-radius:8px;
+                box-shadow:0 10px 20px rgba(0,0,0,0.19),0 6px 6px rgba(0,0,0,0.23);
+                overflow:hidden;
+                 position:relative;
+}
+
+
+#storyTextContent
+{
+  position:absolute;
+  bottom:15px;
+  left:8px;
+  right:8px;
+  background:rgba(0,0,0,0.5);
+  padding:8px;
+}
+
+#storyVisiblePersonName
+{
+  text-align: left; 
+  color:white;
+  padding:8px;
+}
+
+/**/
+#VisibleStoryTextBodySection
+{
+                min-width:300px;
+                width:70%;
+                height:70vh;
+                background-repeat: no-repeat;
+                background-size: cover;
+                border-radius:8px;
+                box-shadow:0 10px 20px rgba(0,0,0,0.19),0 6px 6px rgba(0,0,0,0.23);
+                overflow:hidden;
+                position:relative;
+}
+
+
+
+#textStoryVisiblePersonName
+{
+  color:white;
+}
+
+#exampleModalCenterTitle
+{
+  margin-top:12px;
+  margin-left:12px;
+
+}
+
+#textStoryCommentReplay
+{
+  width:100%;
+  
+  border:none;
+  outline:none;
+  background:none;
+  resize:none;
+  color:white;
+}
+
+#textStoryCommentReplaySubmission
+{
+  
+  border:none;
+  outline:none;
+  
+  
+}
+
+#textStoryCommentReplaySubmission:hover
+{
+  color:rgba(0,150,136,0.8);
+}
+/* Change Placeholder Color */
+#textStoryCommentReplay::placeholder{
+  color:#fff;
+}
+
+#textStoryCommentReplay:ms-input-placeholder{
+
+  color:#fff;
+}
+
+#textStoryCommentReplay::-ms-input-placeholder{
+  color:#fff;
+}
+
+
+.badge {
+  .close {
+    padding-right: $badge-padding-x;
+    padding-left: $badge-padding-x;
+    margin-right: -$badge-padding-x;
+    font-si ze: inherit;
+    color: inherit;
+    text-shadow: none;
+  }
+}
+
+
+.ellipsisOption.ellipsisOption{
+  border:none;background:none;font-size:medium;padding-bottom:0;
+  color:grey;
+
+}
+
+.ellipsisOption:hover
+{
+  color:rgba(0,125,136,1);
+  font-weight:bold;
+
+}
+
+
+#searchPostResultModel
+{
+  width:100%;
+  height:50vh;
+  
+}
+
+#PostResultSearchModel
+{
+  color:rgba(0,125,136,1);
+  font-weight: bold;
+  
+
+}
+
+
+/*Snackbar*/
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 99999; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}

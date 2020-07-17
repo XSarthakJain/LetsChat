@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+  {%load static%}  
+    <link rel="icon" href="{%static 'images/LetsChat_Icon.png'%}" type="image/x-icon">
+    <title>Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="StyleSheet" type="text/css" href="{%static 'css/Userprofile.css'%}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+     <link rel="stylesheet" type="text/css" href="{%static 'css/customScrollBar.css'%}">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+
+
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body class="modal-open" style="" id="wholeBody"><!--padding-right: 15px;-->
+
+<!--Header-->
+<div class="header-container">
+  <header id="header">
+    <div class="heading">
+      <div class="container">
+       <span id="brandSection"><a href="/"><span id="brand">LetsChat</span></a></span>
+      </div>
+    </div>
+  </header>
+</div>
+
+<br><br><br><br>
+<!--Main Body-->
+<div style="">
+  
+    <input type="hidden" id="profile" name="profileId" value="{{data.userName}}"> 
+  <!-- logged user details -->
+    <input type="hidden" id="currentUserFullName" name="currentUserFullName" value="{{currentUserFullName}}">
+    <input type="hidden" id="currentUserPic" name="currentUserPic" value="{{currentUserPic}}">
+    <input type="hidden" id="currentUserId" name="currentUserId" value="{{currentUserId}}">
+  <!-- -- -->
+    <div class="container jumbotron" style="" id="wrapperJumbotron">
+        <div class="fb-profile" style="">
+            <img align="left" class="fb-image-lg" src="{{data.coverPic.url}}" alt="Profile image example" />
+            <img align="left" class="fb-image-profile thumbnail" src="{{data.profilePic.url}}" alt="Profile image example" id="avtar" style="border:6px solid rgba(0, 150, 136, 0.8)";/>
+            <div class="fb-profile-text" style="">
+
+              <div class ="row">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+                  <h2 hidden id="">{{currentUserId}}</h2>
+                  <strong><h2 id="headerName">{{data.firstName}} {{data.lastName}}</h2></strong>
+                <h5 id="headerQuote">{{data.quote}}</h5>
+
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                {% if currentUserId == data.userId %}
+                
+                <span onclick="editProfileFunction()">
+                  <button type="button" class="editProfileButton  pull-right"  id="EditProfileButton"><i class="fas fa-user-edit" style="color:#fff;"></i>
+                  Edit Profile
+                  </button></span>
+                {% else %}
+                
+                {% if isFriend %}
+                <input type="button" onclick="request();" name="" value="Unfriend" id="addbtn" class="pull-right"  style="display:block;background:grey!important;">
+                {% elif isRequest %}
+                <input type="button"  name="" value="Cancel Request" id="addbtn" class=" pull-right"  style="display:block;background:grey;" >
+                {% elif isRequested %}
+                <input type="button" onclick="request();" name="" value="Confirm Request" id="addbtn" class="pull-right"  style="display:block;background:grey;">
+                {% else %}
+                
+                <input type="button" name="" value="Add Friend" id="addbtn" class="pull-right"  style="display:block;background:grey;" >
+                {% endif %}
+                {% endif %}
+                </div></div>
+                <script>
+       
+                </script>
+                
+                
+
+            </div>
+            <hr>
+
+            <!--Tab Section-->
+            <div class="tab" style="">
+              <button class="tablinks" onclick="openCity(event, 'Timeline')">Timeline</button>
+              <button class="tablinks" onclick="openCity(event, 'About')">About</button>
+              <span onclick="tagPeopleFun1('{{data.userId}}')"><button class="tablinks" onclick="openCity(event, 'Friends')">Friends</button></span>
+              <span ><button class="tablinks" onclick="openCity(event, 'Photos')">Photos</button></span>
+            </div>
+
+
+
+<div id="Timeline" class="tabcontent" >
+<h3 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;"><strong>Timeline</strong></h3>
+    {% for i,like,color in postData %}
+    
+<section class="container pt-4 myPostClass" id="myPost">
+  <h5>
+  <img src="{{i.userPic}}" style="width:55px;height:55px;padding:2px;border-radius:50%;vertical-align:middle;">
+  <span class="w-100"><strong>{{i.userName}}</strong></span>  <br>
+  <span class="ml-5 pl-5">{{i.date|date:'M t'}} at {{i.date|time}}</span></h5>
+  <div class="row">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12 " style="width:75%;">
+        <h4>{{i.Message}}</h4>
+    </div>
+    <div class="col-lg-12 col-md-12">
+      {% if i.post %}
+      <img src="{{i.post.url}}" class="img-responsive" style='vertical-align: middle;max-height:200px;border-radius:12px;'>
+       {% endif %}
+       <hr>
+       <strong ><p id="Counter{{i.postId}}" style="">
+        {%if like != 0%}
+       <span id="showLikes">{{like}} Likes</span>
+       {%endif%}
+        </p></strong>
+       
+        <div style="height:45px;">
+        <p id="thumbSignature" title="Like"><a><i class="fas fa-thumbs-up" id="{{i.postId}}" name="{{i.postId}}" onclick="postLiker('{{i.postId}}','{{i.userId}}','{{currentUserId}}')" style="color:{{color}};"></i></a></p>
+        </div>
+        <hr>
+
+        <div class="container-fluid">
+        <div class="row ">
+          <div class="col-lg-1 col-md-1 col-sm-2 col-2 " style="padding:0px;">
+        <img src="{{ActiveUserPic.url}}" style="width:55px;height:55px;padding:2px;border-radius:50%;vertical-align:middle;">
+          </div>
+
+        <div class="col-lg-11 col-md-11 col-sm-10 col-10" >
+        
+        <div class="row"  style="padding: 7px 0;border-radius: 15px;border:1px solid gray; margin:0;    padding-right: 2%;">
+          <div class="col-lg-10 col-md-10 col-sm-9 col-9" style="padding-right: 0;" >
+          
+          <input type="text" placeholder="comment here..." id="Comment{{i.postId}}"  style="border:0;width:100%;padding:8px; padding-right:0;" class="commentHereClass" >
+        </div>
+        
+        <div class="col-lg-2 col-md-2 col-sm-2 col-2" style=" grid-gap: 0;padding:5px 0;text-align:right;">
+          <!-- <input type="button" value="Send"  onclick="comments('{{i.postId}}','{{i.userId}}','{{currentUserId}}')" style="width:100%;padding:7px;"> -->
+          <!-- <button  >Send</button> -->
+          <span class="material-icons" onclick="comments('{{i.postId}}','{{i.userId}}','{{currentUserId}}')">send</span>
+          </div>
+          
+        </div>
+        </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</section> 
+{% endfor %}
+</div>
+            <div id="About" class="tabcontent" >
+              <h3 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;"><strong>About</strong></h3>
+              
+
+              <!--Vertical Tab-->
+              <div class="tab5">
+
+
+                  <button class="tablinks5" onclick="openAboutOpt(event, 'verticalIntroOpt')" style="margin-bottom:12px;">Contact and basic Info</button>
+                  <button class="tablinks5" onclick="openAboutOpt(event, 'verticalEducatOpt')">Education</button>
+                  <button class="tablinks5" onclick="openAboutOpt(event, 'verticalWorkOpt')">Workplace</button>
+                </div>
+                <br>
+                <div id="verticalIntroOpt" class="tabcontent5" style="display:none;">
+                  <h4 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;">Contact and basic Info</h4>
+                  <h3 style="color:grey;" ><span class=""><i class="fas fa-birthday-cake aboutSectionIcon"></i></span><span id="tableDOB1" class="aboutSectionText">{{data.dOB}}</span></h3>
+
+                  <h3 style="color:grey;"><i class="fas fa-phone-alt aboutSectionIcon" ></i><span id="tableMobile1" class="aboutSectionText">{{data.mobile}}</span></h3>
+
+
+                  <h3 style="color:grey;"><i class=" fa-circle fas fa-male aboutSectionIcon" ></i><span id="tableGender1" class="aboutSectionText">{{data.gender}}</span></h3>
+
+                <h3 style="color:grey;"><i class="fas fa-flag-usa aboutSectionIcon" ></i><span id="tableCountryName1" class="aboutSectionText">{{data.countryName}}</span></h3>
+
+                 <h3 style="color:grey;"><i class="fas fa-city aboutSectionIcon" ></i><span id="tableCityName1" class="aboutSectionText">{{data.cityName}}</span></h3>
+
+                
+                  
+                </div>
+
+                <div id="verticalEducatOpt" class="tabcontent5" style="display:none;">
+                  <h4 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;">Education</h4>
+                  
+                  <h3 style="color:grey;"><i class="fas fa-university aboutSectionIcon"></i><span id="{{data.currentEducation}}" class="aboutSectionText">{{data.currentEducation}}</span></h3>
+                  
+                  <h3 style="color:grey;"><i class="fas fa-clock aboutSectionIcon"></i><span id="tableEducationStartYear1" class="aboutSectionText"><span >from</span>{{data.educationStartYear}}</span></h3>
+
+                  <h3 style="color:grey;"><i class="fas fa-clock aboutSectionIcon"></i><span id="tableEducationEndYear1" class="aboutSectionText"><span>to</span>{{data.educationEndYear}}</span></h3>
+                </div>
+
+                <div id="verticalWorkOpt" class="tabcontent5" style="display:none;">
+                  <h4 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;">Workplace</h4>
+                  
+                  <h3 style="color:grey;"><i class="fas fa-building aboutSectionIcon"></i><span id="tableCompanyName1" class="aboutSectionText">{{data.companyName}}</span></h3>
+
+                  <h3 style="color:grey;"><span class="glyphicon glyphicon-briefcase aboutSectionIcon" ></span><span id="tableCompanyPosition1" class="aboutSectionText">{{data.companyPosition}}</span></h3>
+
+                  <h3 style="color:grey;"><i class="fas fa-map-marker-alt aboutSectionIcon"></i><span id="tableCompanyCity1" class="aboutSectionText">{{data.companyCity}}</span></h3>
+
+                  <h3 style="color:grey;"><i class="far fa-address-card aboutSectionIcon"></i><span id="tableCompanyDescription1" class="aboutSectionText">{{data.companyDescription}}</span></h3>
+                </div>
+
+
+
+            </div>
+
+            <div id="Friends" class="tabcontent">
+              <h3 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;"><strong>Friends</strong></h3>
+              <div class="spinner-border" role="status" id="tagLoader" style="display: none;">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div id="friendsListId"></div>
+              
+            </div>
+
+            
+            <div id="Photos" class="tabcontent">
+              <h3 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;"><strong>Photos</strong></h3>
+              {% if currentUserId == data.userId %}
+                  <h4 class="float-right"><a href="/album/" style="text-decoration: none;"><strong style="color:rgba(0,150,136,0.8);">+ create new Album</strong></a></h4>
+              {%endif%}
+              <br><br>
+              <!-- hum yha pr sare photos show kr skte hain album name k sath -->
+
+              <!--Tab Section-->
+            <div class="tab6">
+              <span onclick="profilePicFunction('{{data.userId}}')">
+                <button class="tablinks6" onclick="openPhotosOpt(event, 'profilePicId')">Profile</button></span>
+
+              <span onclick="coverPicFunction('{{data.userId}}')">
+              <button class="tablinks6" onclick="openPhotosOpt(event, 'cover')">Cover</button></span>
+              <span onclick="postPicFunction('{{data.userId}}')"><button class="tablinks6" onclick="openPhotosOpt(event, 'postPicId')">Post</button></span>
+              <span onclick="otherPicFunction('{{data.userId}}')"
+
+              data-toggle="modal" data-target="#bd-example-modal-sm">
+                <button class="tablinks6" onclick="openPhotosOpt(event, 'othersPicId')">others</button></span>
+            </div>
+
+            <div id="profilePicId" class="tabcontent6">
+              <h4 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;">profile</h4>
+                <div class="container gallerys">
+                  <div class ="row" id="profilePicImageId"></div>
+                </div>
+            </div>
+            <div id="cover" class="tabcontent6">
+              <h4 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;">cover</h4>
+                <div class="container gallerys1">
+                  <div class ="row" id="coverPicImageId"></div>
+                </div>
+            </div>
+            <div id="postPicId" class="tabcontent6">
+              <h4 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;">post</h4>
+              <div class ="row" id="postPicImageId"></div>
+            </div>
+            <div id="othersPicId" class="tabcontent6">
+              <h4 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;">others</h4>
+              <div class="container gallerys2">
+              <div id="showSelectOptionPicId" class="row"></div>
+              </div>
+
+              
+            </div>
+
+    <!--Edit Model-->
+
+    <!-- Modal -->
+
+    <!-- Small modal -->
+              
+              <div class="modal fade " id="bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm modal-dialog-centered " role="document">
+                  <div class="modal-content modalContentClass">
+                  <div class="modal-header" style="background:rgba(0,150,136,0.8);color:white;">
+                    <h4 class="modal-title" id="exampleModalLongTitle">My Album</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div id="otherAlbumCount"></div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" id="closeModal" data-dismiss="modal">Close</button>
+                    
+                  </div>
+                </div>
+                </div>
+            </div>
+    <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modalContentClass">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <br>
+            
+            <h4 class="modal-title" id="editProfileModalTitle" >CoverImage</h4>
+            
+          </div>
+          <div class="modal-body">
+            
+
+            <!--Model Content-->
+
+            <div class="tab1">
+
+
+              
+              <button class="tablinks1" onclick="editOpen(event, 'CoverImage')">Cover Image</button>
+              <button class="tablinks1" onclick="editOpen(event, 'ProfileImage')">ProfileImage</button>
+              <button class="tablinks1" onclick="editOpen(event, 'Intro')">Intro</button>
+              
+            </div>
+            <br><br><br><br>
+            <div id="CoverImage" class="tabcontent1">
+                      
+                      <div class="coverPicture">
+                        <img src="{{data.coverPic.url}}" class="coverImage">
+                        </div>
+                        
+            </div>
+
+           
+
+            <div id="ProfileImage" class="tabcontent1">
+              
+              <div>
+                <h4>Profile Image</h4>
+                <img src="{{data.profilePic.url}}" class="profilePicture">
+              </div>
+
+              
+            </div>
+
+            <div id="Intro" class="tabcontent1" style="max-height: calc(100vh - 300px);
+               overflow-y: auto;">
+
+
+
+
+
+
+            <table class="table-responsive table table-hover" style="font-size:medium;color:rgba(0, 150, 136, 0.8);">
+              
+              <tbody>
+                <tr>
+                  <th scope="row"></th>
+                  <td>First name :</td>
+                  <td>{{data.firstName}}</td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Last name :</td>
+                  <td>{{data.lastName}}</td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Email Id :</td>
+                  <td>{{data.userId}}</td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Mobile No. :</td>
+                  <td ><span id="tableMobile">{{data.mobile}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Gender :</td>
+                  <td><span id="tableGender">{{data.gender}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Date of Birth :</td>
+                  <td><span id="tableDOB">{{data.dOB}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Quote :</td>
+                  <td><span id="tableQuote">{{data.quote}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Country name :</td>
+                  <td><span id="tableCountryName">{{data.countryName}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>City name :</td>
+                  <td><span id="tableCityName">{{data.cityName}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Current Education :</td>
+                  <td><span id="tablecurrentEducation">{{data.currentEducation}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Education start year :</td>
+                  <td><span id="tableEducationStartYear">{{data.educationStartYear}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Education end year :</td>
+                  <td><span id="tableEducationEndYear">{{data.educationEndYear}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Company name :</td>
+                  <td><span id="tableCompanyName">{{data.companyName}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Company position :</td>
+                  <td><span id="tableCompanyPosition">{{data.companyPosition}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Company city/town</td>
+                  <td><span id="tableCompanyCity">{{data.companyCity}}</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td>Company description :</td>
+                  <td><span id="tableCompanyDescription">{{data.companyDescription}}</span></td>
+                </tr>
+                
+              </tbody>
+            </table>
+
+            
+           
+
+
+         </div>
+
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button"  data-dismiss="modal" id="closeModal">Close</button>
+            <button type="button" onclick="edit()" id="noneOpt" data-toggle="modal" data-target="#myProfile">Edit</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+                    
+                
+          </div>
+
+
+
+
+    <!--Cover Iamge-->
+    <!-- Modal  for Cover Page Edit-->
+    <div class="modal" id="CoverImage1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <form method="Post" action="/userCoverInsert/"  enctype="multipart/form-data">{%csrf_token%}
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modalContentClass">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Cover Image</h4>
+          </div>
+          <div class="modal-body">
+                <input type="hidden" name="coverUser" value="{{data.userId}}">
+                <input type="file"  name="coverImage">
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="closeModal" data-dismiss="modal">Close</button>
+            <button type="submit" id="saveChanges">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+
+
+    <!-- Modal  for profile Page Edit-->
+    <div class="modal " id="ProfileImage1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <form action="/userProfileInsert/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+
+    <input type="hidden" name="ProfileUser" value="{{data.userId}}">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modalContentClass">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Profile Image</h4>
+          </div>
+          <div class="modal-body">
+                        
+                <input type="file"  name="profileImage">
+                
+    
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="closeModal" data-dismiss="modal" onclick="editProfileFunction()">Back</button>
+            <input type="submit"  name="Submit" id="profileInsertSubmissionId">
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+
+    <!-- Modal  for Intro Page Edit-->
+    <div class="modal" id="Intro1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modalContentClass">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Intro</h4>
+
+            <div class="" role="alert" id="introAlertMessage">
+                  <strong>LetsChat</strong> 
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+
+          </div>
+          <div class="modal-body" style="max-height: calc(100vh - 300px);
+               overflow-y: auto;">
+             
+            <h1 id="profileUser" hidden>{{data.userId}}</h1>
+            <h4 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;">
+              <strong>Personal Details</strong></h4>
+            <br>
+            <p>Quote</p>
+            <textarea class="form-control" name="quote" id="quote" value=>{{data.quote}}</textarea>
+            <p>Date of Birth</p>
+            <input type="date" name="dOB" class="form-control" placeholder="DOB" id="dOB" value="{{data.dOB}}">
+            <p>Gender</p>
+            <select name="gender" class="form-control" id="gender" >
+                    <option>{{data.gender}}</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Others</option>
+            </select>
+            <p>Mobile number</p>
+            <input type="number" name="mobileNumber" placeholder="mobile"class="form-control" id="mobileNumber" value="{{data.mobile}}">
+            <p>Country</p>
+            <input type="text" name="countryName" placeholder="Country" class="form-control" id="countryName" value="{{data.countryName}}">
+            <p>City</p>
+            <input type="text" name="cityName" placeholder="City" class="form-control" id="cityName" value="{{data.cityName}}">
+            <br>
+            <h4 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;"><strong>Education details</strong></h4>
+            <br>
+            <p>Current education</p>
+            <input type="text" name="currentEducation" placeholder="Current Education" class="form-control" id="currentEducation" value="{{data.currentEducation}}">
+            <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Start Year</p>
+                    <input type="number" name="educationStartYear" placeholder="Start Year" class="form-control" id="educationStartYear" value="{{data.educationStartYear}}">
+                </div>
+                <div class="col-sm-6">
+                    <p>End Year</p>
+                    <input type="number" name="educationEndYear" placeholder="End Year" class="form-control" id="educationEndYear" value="{{data.educationEndYear}}">
+                </div>
+            </div>
+
+            <h4 style="border-left:4px solid rgba(0, 150, 136, 0.8);padding-left: 8px;color:grey;">
+              <strong>Workplace</strong>
+            </h4>
+            <p>Company</p>
+            <input type="text" name="companyName" placeholder="Company Name" class="form-control" id="companyName" value="{{data.companyName}}">
+            <p>Position</p>
+            <input type="text" name="companyPosition" placeholder="Position" class="form-control" id="companyPosition" value="{{data.companyPosition}}">
+            <p>City/Town</p>
+            <input type="text" name="companyCity" placeholder="City/Town" class="form-control" id="companyCity" value="{{data.companyCity}}">
+            <p>Description</p>
+            <textarea name="companyDescription" class="form-control" id="companyDescription" >{{data.companyDescription}}</textarea>
+
+           
+          </div>
+          <div class="modal-footer">
+           <button type="button" id="closeModal" data-dismiss="modal">Close</button>
+
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loader" style=""></span>
+
+            <button type="button"  onclick="introSubmission()" id="IntroButt">
+
+            Save changes</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  
+<h1 hidden id="pageiId">Page2</h1> 
+</div></div>
+
+
+
+<div class="modal fade welcomeModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content modalContentClass">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="{%static 'js/Userprofile.js'%}"></script>
+<script type="text/javascript" src="{%static 'js/notifications.js'%}"></script>
+<script type="text/javascript" src="{%static 'js/RequestSocket.js'%}"></script>
+<script type="text/javascript" src="{%static 'js/LikeSocket.js' %}"></script>
+<script type="text/javascript" src="{%static 'js/CommentSocket.js'%}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript" src="{%static 'js/popup.js'%}"></script>
+  <script>
+   $(document).ready(function(){
+    $('.gallerys').magnificPopup({
+     type: 'image',
+     delegate: 'a',
+     gallery: {
+      enabled : true
+     }
+    });
+
+    $('.gallerys1').magnificPopup({
+     type: 'image',
+     delegate: 'a',
+     gallery: {
+      enabled : true
+     }
+    });
+
+    $('.gallerys2').magnificPopup({
+     type: 'image',
+     delegate: 'a',
+     gallery: {
+      enabled : true
+     }
+    });
+   });   
+</script>
+<!-- jQuery library -->
+
+</html>

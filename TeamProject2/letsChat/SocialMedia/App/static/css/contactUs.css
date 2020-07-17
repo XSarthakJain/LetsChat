@@ -1,0 +1,293 @@
+*
+{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+
+
+@font-face
+{
+  font-family: 'LetsChat', cursive;
+  src:url("{static 'fonts/static/GrenzeGotisch-ExtraBold.ttf'}");
+}
+
+
+
+
+
+
+
+.header-container
+{
+  position:fixed;
+  top:0px;
+  left:0px;
+  right:0px;
+  width:100%;
+  margin-top:-200px;
+  transition:all .4s;
+  z-index:10;
+
+  background-color:#fff ;
+}
+
+.header-container header
+{
+  margin-top:200px;
+  background-color:#fff ;
+}
+
+header
+{
+  display:flex;
+  flex-direction: column;
+  background-color:#fff ;
+
+  
+}
+
+.heading
+{
+  padding:24px 0 24px 10px;
+  box-shadow:0px 0px 23px 0px rgba(0,0,0,0.5);
+  z-index:1;
+}
+.heading #brand
+{
+  
+  color:#00a087;    
+  font-weight:bold;
+  cursor:pointer;
+  font-family:LetsChat;
+  font-style: cursive;
+  
+}
+
+
+
+
+/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+@media screen and (min-width: 601px) {
+  .heading #brand {
+    font-size: 30px;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  .heading #brand {
+    font-size: 25px;
+  }
+}
+
+
+
+
+
+#bannerDiv
+{
+    background-image:url('/static/images/ContactUs.jpg');
+    background-size:cover;
+    
+    background-repeat: no-repeat;
+    width:100%;
+    height:35vh;
+    background-color:#E9ECEF;
+    position: relative;
+
+}
+
+
+#bannerDiv div
+{
+    position: absolute;
+    top:50%;
+    left:0;
+    right:0;
+}
+
+#bannerDiv div h5
+{
+    text-align: center;
+    color:rgba(0,150,136,1);
+    text-transform:uppercase;
+    
+    font-weight: bolder;
+    background:#fff;
+    display: inline-block;
+    font-size:xx-large;
+
+
+
+}
+
+#bannerDiv div p{
+  display: inline-block;
+    color:grey;
+    font-weight: bold;
+    text-align: center;
+    background:#fff;
+}
+
+#contactUsForm
+{
+    padding:3%;
+    box-shadow:0px 0px 23px 0px rgba(0,0,0,0.5);
+    margin:3%;
+}
+
+#rightContactUsDiv
+{
+    padding:3%;
+    margin:3%;
+}
+
+#rightContactUsDiv h5
+{
+    color:#232D37;
+    font-size: large;
+}
+
+.fa-envelope
+{
+    color:grey;
+    font-size:x-large;
+    padding:0 8px;
+}
+
+.fa-envelope:hover{
+    color:rgba(0,150,136,0.8);
+
+}
+
+
+.fa-linkedin-in
+{
+    color:grey;
+    font-size:x-large;
+    padding:0 8px;
+}
+
+.fa-linkedin-in:hover
+{
+  color:rgba(0,150,136,0.8);
+}
+
+.connectMethod 
+{
+    color:#808080;
+    cursor: pointer;
+    padding:12px;
+}
+
+textarea
+{
+    resize:none;
+}
+
+
+.btn
+{
+    background:rgba(0,150,136,0.8);
+    color:white;
+}
+
+
+/*Footer*/
+footer
+  {
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:#fff;
+      padding:14px 0 0 0;
+      box-shadow:0px 0px 23px 0px rgba(0,0,0,0.5);
+      z-index:1;
+      
+  }
+
+  footer p a
+  {
+    padding:14px 0 14px 44px;
+    color:rgba(0,150,136,1);
+    font-size: large;
+    
+
+  }
+
+  #finalFooter
+  {
+      
+      background-color: #fff;
+      padding:8px 0;
+      color:rgba(0,150,136,0.8);
+      text-align: center;
+      
+  }
+
+  finalFooter:hover
+{
+    cursor:pointer;
+    text-decoration:none;
+    text-underline-position: none;
+    
+}
+
+a{
+    text-decoration: none !important;
+}
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+
+
+
+

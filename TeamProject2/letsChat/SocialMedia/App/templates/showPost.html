@@ -1,0 +1,306 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+
+ <link rel="icon" href="{%static 'images/LetsChat_Icon.png'%}" type="image/x-icon">
+  <title>Post</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+
+ <link rel="stylesheet" type="text/css" href="{%static 'css/showPost.css'%}">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta charset="utf-8">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   <link rel="stylesheet" type="text/css" href="{%static 'css/customScrollBar.css'%}">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
+</head>
+<body id="wholeBody">
+
+<!--Nav Bar-->
+<div class="header-container">
+  <header id="header">
+    <div class="heading">
+      <div class="container">
+     		<span id="brandSection"><a href="/"><span id="brand">LetsChat</span></a></span>
+      </div>
+    </div>
+  </header>
+</div>
+
+<br><br><br><br>
+
+<div class="container-fluid ">
+	<div>
+		<input type="hidden" id="currentUserId" value="{{loggedUser}}">
+		<div class="row" style="width:100%;height:80vh;">
+			<div class="col-lg-8 col-md-8 col-sm-12 col-12  dropleft"  id="left" >
+				<!--  -->
+				{% if is_authenticated %}
+				<button type="button" class=" dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none; border-radius: 16px;border:none;" id="ellipsisId">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                	<center>
+					<button class="dropdown-item ellipsisOption border-bottom" type="button" data-toggle="modal" data-target="#tagPeopleModel" onclick="tagPeopleFun1('{{postData.postId}}')" style="padding:0;">Tag</button>
+				<button onclick="deletePost('{{postData.postId}}')" class=" dropdown-item ellipsisOption">Delete</button>
+				</center>
+				</div>
+				{% endif %}
+
+				<div style="padding:2%;" class="border">
+					<div>
+						{% if postData.post %}
+
+
+						<div class="card hovercard">
+					        <div class="card-background">
+					            <img class="card-bkimg" alt="" src="{{postData.post.url}}">
+					            <!-- http://lorempixel.com/850/280/people/9/ -->
+					        </div>
+					        <div class="useravatar">
+					            <img alt="" src="{{postData.post.url}}">
+					        </div>
+					        <div class="card-info"> <span class="card-title"></span>
+
+					        </div>
+					    </div>
+						{% elif postData.Message %}
+						<div style="height:80vh;display: flex;
+  justify-content: center;
+  align-items: center;">
+						<h3 style="color:black;">{{postData.Message}}</h3>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12 col-12" id="right" >
+	
+			<div >
+			<div class="container" style="width: 100%;padding-top:5%;" >
+				<div >
+				<div id="commentSection" >
+					{% for comment in allComments %}
+
+					<p style="background:#E9ECEF;display:inline-block;border-radius:25px;padding:12px;">
+					<img src="{{comment.userInfo.profilePic.url}}" style="width: 40px;height:40px;border-radius:50%; vertical-align: text-top;margin-top:0;">
+					<strong>
+					{{comment.userInfo.firstName}}
+					{{comment.userInfo.lastName}}
+					</strong>
+					<br>
+					<span style="padding-left:50px;">
+					{{comment.comment}}<br>
+					<span class="material-icons">
+						reply
+						</span>
+					<span style="padding-left:50px;">
+					<span id="allReplies{{comment.commentId}}"></span>
+					<input type="text" id="reply{{comment.commentId}}" style="display:none;" placeholder="Relpy here...">
+					<span onclick="reply('{{postData.postId}}','{{comment.commentId}}',
+					'{{comment.userInfo.firstName}} {{comment.userInfo.lastName}}','{{comment.userInfo.userId}}')"><strong>Reply</strong></span>
+					
+					{{comment.date.time}}
+					</span>
+					</span>
+					<br>
+					</p><br>
+				{% endfor %}
+				
+			</div></div>
+				<div >
+				
+			</div>
+
+
+
+			<div style="position: -webkit-sticky; /* Safari */
+  position: sticky;
+  bottom: 0;background:#fff;">
+					<div class="row" style='border-radius:25px;border:2px solid grey;padding:8px;background:#fff;'>
+
+					<div class="col-lg-3 col-md-3 col-sm-2 col-3">
+						<span id="Counter{{postData.postId}}" style="display:inline-block;color:grey;">{{totalLikes}}</span>
+						<h4 style="cursor:pointer;color: {{colorPost}};display:inline-block;" id="{{postData.postId}}" onclick="postLiker('{{postData.postId}}','{{postData.userId}}','{{loggedUser}}')" title="Like"><i class="fas fa-thumbs-up"></i></h4>
+					</div>
+					<div class="col-lg-7 col-md-7 col-sm-7 col-7" style="padding:0;">
+						<center>
+					<input type="text" name="" placeholder="Comment here..." style="padding:0;border:none;outline:none;padding:4px;padding-left:0; "  id="Comment{{postData.postId}}"></center>
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-2" style="padding:0;">
+						<center>
+					<span class="material-icons" style="padding:0;border:none;border:none;outline:none;padding:4px;cursor:pointer;" onclick="comments('{{postData.postId}}','{{postData.userId}}','{{loggedUser}}')">send</span>	
+				</center>
+					</div>
+					</div>
+				</div>
+			
+			</div>
+
+			
+
+
+
+<!-- <div class="">
+			<div id='body' style='position: relative;width:100%; '>
+			    <div id='parent' style='display: block; margin: 0px auto; width: 100%;'>
+			        <div id='content' style='position: fixed;bottom:0;background:red;width:100%;'>
+			        	<input type="text" class="form-control" style="width:100%;border-radius: 25px;">
+			        	<button>Send</button>
+			        </div>
+			    </div>
+			</div> 
+</div> -->
+			</div>
+		</div>
+
+	</div>
+
+
+		</div>	
+</div>			
+
+
+			<!-- <div style="color:white;cursor:pointer;position:fiexd;bottom:0;background:yellow;width:100%;">
+			<center  style="background:blue;width:100%;">
+				<div class="row" style="width:100%;">
+
+					<input type="text" class="col-lg-10 col-md-10 col-sm-10 col-10 form-control" placeholder="Write your Comment" style="width:100%;border:none;"> 
+					<span class="col-lg-2 col-md-2 col-sm-2 col-2 border" style="">Send</span>
+				</div>	
+			</center>
+			</div> -->
+			
+
+			
+	
+
+<!-- Modal -->
+<div class="modal fade" id="tagPeopleModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+	  <div class="modal-content" style="color:grey;">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalScrollableTitle" style="color:#00a087;">Tag People</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <div id="selectedPeople">
+			
+		  </div>
+  
+		  <input type="text" class="form-control" oninput="tagFriendPeopleTextBox()" id="tagFriendsTextBoxId">
+		  <div class="spinner-border" role="status" id="tagLoader" style="display: none;">
+			<span class="sr-only">Loading...</span>
+		  </div>
+  
+		  <div id="tagPeoplenameArea">
+  
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary" onclick="TagSubmissionForm()">Tag</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+<script>
+	function reply(val){
+		document.getElementById('replyBox'+val).style.display='block';
+	}
+</script>
+
+<span id="profile{{postData.postId}}">
+</a><span style="color:black;">
+ <!-- <div style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.5);padding:1%; grid-gap: 0;">
+	<span id="Counter{{postData.postId}}">{{totalLikes}}</span>
+	<h4 style="cursor:pointer;color: {{colorPost}};" id="{{postData.postId}}" onclick="postLiker('{{postData.postId}}','{{postData.userId}}','{{loggedUser}}')" title="Like"><i class="fas fa-thumbs-up"></i></h4>
+<div  class = "row" >
+
+		<div class="col-lg-10 col-md-10 col-sm-8 col-8">
+			<div>
+				
+					<input type="text" id="Comment{{postData.postId}}" placeholder="text here..." style="width:110%;padding:12px;object-fit: cover;" >
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-2 col-sm-4 col-4">
+			<button onclick="comments('{{postData.postId}}','{{postData.userId}}','{{loggedUser}}')" style="padding:12px;width:100%;object-fit: cover;background:red;color:white;">Send</button>
+		</div>
+	</div>
+	</div>   -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+<script type="text/javascript">
+	
+
+
+
+	//Night Mode
+	function getCookie(){
+  var nameEQ = "Mode" + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0;i < ca.length;i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1,c.length);
+          if (c.indexOf(nameEQ) == 0) {
+            return c.substring(nameEQ.length,c.length)
+            
+          }
+      }
+  
+  }  
+
+
+  function autoMode(){
+    v=getCookie();
+     
+      if(v=="darkMode"){
+        
+        nightMode(); 
+      }
+      
+      else{
+        
+        dayMode();
+      }
+     
+  }
+      
+function nightMode()
+{        
+  
+  document.getElementById("header").style.backgroundColor="black";  
+  document.getElementById("header").style.boxShadow="0px 0px 23px 0px rgba(0, 150, 136, 1)";
+
+  
+   
+}
+
+function dayMode()
+{
+  
+}
+
+  autoMode();
+
+  
+</script>
+<script type="text/javascript" src="{%static 'js/CommentSocket.js'%}"></script>
+<script type="text/javascript" src="{%static 'js/LikeSocket.js' %}"></script>
+<script type="text/javascript" src="{%static 'js/script1.js' %}"></script>
+
+</html>

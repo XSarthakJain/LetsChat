@@ -1,0 +1,167 @@
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+
+@font-face
+{
+  font-family: 'LetsChat', cursive;
+  src:url("{static 'fonts/static/GrenzeGotisch-ExtraBold.ttf'}");
+}
+
+
+
+
+
+
+
+.header-container
+{
+  position:fixed;
+  top:0px;
+  left:0px;
+  right:0px;
+  width:100%;
+  margin-top:-200px;
+  transition:all .4s;
+  z-index:10;
+
+  background-color:#fff ;
+}
+
+.header-container header
+{
+  margin-top:200px;
+  background-color:#fff ;
+}
+
+header
+{
+  display:flex;
+  flex-direction: column;
+  background-color:#fff ;
+
+  
+}
+
+.heading
+{
+  padding:24px 0 24px 10px;
+  box-shadow:0px 0px 23px 0px rgba(0,0,0,0.5);
+  z-index:1;
+}
+.heading #brand
+{
+  
+  color:#00a087;    
+  font-weight:bold;
+  cursor:pointer;
+  font-family:LetsChat;
+  font-style: cursive;
+  
+}
+
+
+  
+
+/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+@media screen and (min-width: 601px) {
+  .heading #brand {
+    font-size: 30px;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  .heading #brand {
+    font-size: 25px;
+  }
+}
+
+
+
+#pageTitle{
+	color:#00a087;
+	border-bottom:5px solid #E9ECEF;
+	padding:5px;
+}
+
+
+#wrapper{
+	padding:2% 0;
+	margin:2%;
+	 box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 5px;
+}
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  padding-left:2%;
+  height:100%;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  
+  
+  border-top: none;
+}
+
+.tablinks{
+	color:#00a087;
+	font-weight:bold;
+}
+.notificationSect{
+
+}
+
+.profilePic{
+	
+	vertical-align: middle;
+	width:55px;
+	height:55px;
+	border-radius:50%;
+	/*padding:2px;
+	border:2px solid rgba(0, 150, 136, 1);*/
+  	/*box-shadow: 0 0 10px rgba(0, 400, 400, 0.8);*/
+}
+
+
+.notificationBoxClass:hover
+{
+  width:100%;
+  
+
+  background:#35363a;
+  box-shadow:0px 0px 23px 0px rgba(0,150,136,0.6);
+
+}
+.NotificationNotes{
+	padding-left:2%;
+	color:black;
+}

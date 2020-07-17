@@ -1,0 +1,143 @@
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+
+}
+@font-face
+{
+  font-family: 'LetsChat', cursive;
+  src:url("{static 'fonts/static/GrenzeGotisch-ExtraBold.ttf'}");
+}
+
+
+
+
+
+
+
+.header-container
+{
+  position:fixed;
+  top:0px;
+  left:0px;
+  right:0px;
+  width:100%;
+  margin-top:-200px;
+  transition:all .4s;
+  z-index:10;
+
+  background-color:#fff ;
+}
+
+.header-container header
+{
+  margin-top:200px;
+  background-color:#fff ;
+}
+
+header
+{
+  display:flex;
+  flex-direction: column;
+  background-color:#fff ;
+
+  
+}
+
+.heading
+{
+  padding:24px 0 24px 10px;
+  box-shadow:0px 0px 23px 0px rgba(0,0,0,0.5);
+  z-index:1;
+}
+.heading #brand
+{
+  
+  color:#00a087;    
+  font-weight:bold;
+  cursor:pointer;
+  font-family:LetsChat;
+  font-style: cursive;
+  
+}
+
+
+
+
+/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+@media screen and (min-width: 601px) {
+  .heading #brand {
+    font-size: 30px;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  .heading #brand {
+    font-size: 25px;
+  }
+}
+
+
+
+#createAccountDiv{
+	padding:4%;
+    padding-top:2%;
+	align-content: center;
+	color:grey;
+    margin-left:15%;
+    margin-right:15%;
+    margin-top:2%;
+    box-shadow: 0 14px 28px grey, 0 10px 10px grey;
+    margin-bottom:2%;
+}
+
+@media (max-width: 768px){
+    #createAccountDiv{
+    margin-left:0;
+    margin-right:0;
+    margin-top:0;
+    margin-bottom:2%;
+
+}
+}
+
+@media (min-width: 768px) and (max-width: 979px)  {
+    #createAccountDiv{
+    margin-left:15%;
+    margin-right:15%;
+    margin-top:10%;
+    margin-bottom:2%;
+    }
+}
+#message {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding:10px 20px;
+	width:100%;
+	margin:auto;
+	margin-top:-5px;
+}
+#message p {
+    padding: 0px 35px;
+    font-size: 18px;
+}
+.valid {
+    color: green;
+}
+.valid:before {
+    position: relative;
+    left: -35px;
+    content: "\2713";
+}
+.invalid {
+    color: red;
+}
+.invalid:before {
+    position: relative;
+    left: -35px;
+    content: "\00D7";
+}

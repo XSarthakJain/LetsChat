@@ -1,0 +1,714 @@
+    
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" href="{%static 'images/LetsChat_Icon.png'%}" type="image/x-icon">
+  <title>LetsChat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{%static 'css/chat.css'%}">	
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+     <link rel="stylesheet" type="text/css" href="{%static 'css/customScrollBar.css'%}">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+    	$(document).ready(function(){
+    		$(".hamburger .fas").click(function(){
+		    	$(".wrapper").addClass("active")
+			})
+
+			$(".close").click(function(){
+		    	$(".wrapper").removeClass("active")
+			})
+    	})
+    </script>
+</head>
+<body id="wholeBody">
+
+<div class="container-fluid">
+<div class="wrapper" style=" "style=" ">
+    <div class="sidebar" style=" ">
+      <div class="bg_shadow" style=" "></div>
+        <div class="sidebar__inner" style=" overflow-y:auto;
+    overflow-x:hidden;">
+        
+        
+        <ul class="siderbar_menu" style=" overflow-y:auto;
+    overflow-x:hidden;margin-bottom:15%;">
+
+          
+          <a href="#" class="btn btn-danger btn-block close" style="opacity:1;background:grey;color:#ffffff;">Close
+            
+          </a>
+          
+
+          <!-- FOR INBOX  -->
+          <input type="hidden" id="inboxId" value="{{inboxId}}">
+          <input type="hidden" name="loggedUser" id="loggedUser" value="{{myData.userId}}">
+          <input type="hidden" name="loggedUserFullName" id="loggedUserFullName" value="{{myData.firstName}} {{myData.lastName}}">
+          <input type="hidden" name="loggedUserPic" id="loggedUserPic" value="{{myData.profilePic.url}}">
+          <input type="hidden" id="friend" value="{{friendData.userId}}">
+          <h4 class="sidebar_Heading">Chats</h4>
+          <hr>
+          <span onclick="tagPeopleFun1()" style="text-align: center;cursor:pointer;font-size:medium;"><strong><p data-toggle="modal" data-target="#tagPeopleModel" style="width:100%;padding:8px 4px;text-align: center;background:grey;"> 
+            <span class="material-icons" style="vertical-align: middle;color:#fff;">
+            group_add
+            </span>&nbsp;&nbsp;<span style="color:#fff;">Create Group</span></p></strong></span>
+
+          {% for query,newMsg in friendList %}
+          {% for friend in query %}
+          <hr>
+          <li id="friendName{{friend.userId}}" class="this_Friend"><img src="{{friend.profilePic.url}}" class="onlineUserImage"><a href="/messages/{{friend.userId}}/" class="onlineUserName">{{friend}} 
+            {% if newMsg != 0 %}
+            <span id="unreadmsg{{friend.userId}}">{{newMsg}}</span></a>
+            {% if friend.is_online %}
+            <span class=" "><i id="online{{friend.userId}}" class="fa fa-eye "></i></span>
+            {% else %}
+            <span class=" "><i id="online{{friend.userId}}" class="fa fa-eye-slash "></i></span>
+            {% endif %}
+            {% else %}
+
+            {% if friend.is_online %}
+            <span class=" "><i id="online{{friend.userId}}" class="fa fa-eye "></i></span>
+            {% else %}
+            <span class=" "><i id="online{{friend.userId}}" class="fa fa-eye-slash "></i></span>
+            {% endif %}
+
+            <span id="unreadmsg{{friend.userId}}"></span></a>
+            <!-- fas fa-dot-circle -->
+            <!-- <span class=" "><i class="fa fa-eye-slash"></i></span> -->
+          </li>
+          {% endif %}
+          {% endfor %}
+          {% endfor %}
+
+          <!-- FOR GROUPS -->
+          <input type="hidden" id="groupId" value="{{groupId}}">
+          {% for query,newMsg in groups %}
+          {% for group in query %}
+          <hr>
+          <li class="this_Friend"><img src="{{group.groupPic.url}}" class="onlineUserImage" onclick="chooseChat('{{friend.userId}}')"><a href="/groups/{{group.groupId}}/" class="onlineUserName">{{group.groupName}}
+            <span>{{newMsg}}</span></a>
+          
+            <span class=" "><i class="fas fa-dot-circle "></i></span>
+          </li>
+          {% endfor %}
+          {% endfor %}
+          
+          <hr>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="main_container">
+
+    <header id="topHeaderDiWrapperDiv">
+      <a href="/"><h3 id="brand">LetsChat</h3></a>
+
+       <div class="hamburger">
+              <div class="hamburger__inner">
+                  <i class="fas fa-bars" style="position:fixed;top:35px;right:3%;color:rgba(0, 150, 136, 1); " ></i>  
+              </div>  
+          </div>
+    </header>
+
+    </div>
+</div>
+	
+<br><br><br><br>
+<div class="container ">
+
+
+<p style="margin-left: 5%;margin-top:5%;" data-toggle="modal" data-target=".groupCreateModelId"></p>
+
+
+<!-- Large modal -->
+<!-- <span onclick="tagPeopleFun1()"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tagPeopleModel">+ Create Group</button></span>
+ -->
+<!-- Modal -->
+<div class="modal fade" id="tagPeopleModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" style="z-index:9999;">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+    <div class="modal-content" style="color:grey;" id="modalId1">
+      <div class="modal-header" >
+        <h5 class="modal-title" id="exampleModalScrollableTitle" >Create Group</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/groupCreationForm/" method="POST" enctype="multipart/form-data">{%csrf_token%}
+      <div class="modal-body">
+
+        <input type="text" placeholder="Group name" class="form-control" name="newGroupName" id="newGroupNameTextBox" oninput="submitValidation1()">
+        <br>
+        <textarea class="form-control" placeholder="Description" name="newGroupDescription"></textarea>
+        <br>
+        <input type="file"  name="newGroupPic" class="form-control">
+        
+        <br>
+        <div id="selectedPeople" >
+          
+        </div>
+
+        <input type="text" class="form-control" oninput="tagFriendPeopleTextBox()" id="tagFriendsTextBoxId" placeholder="Select Group Member">
+        <div class="spinner-border" role="status" id="tagLoader" style="display: none;">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <input type="text" hidden id="allfrendlistId" name="newGroupAllFriends">
+        <h4 >Friends</h4>
+        <div id="friendsListId">
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary"value="Create" id="createSubmissionButton" >
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!---->
+  <div class="all_Friends">
+   <div style="height:8em;z-index:9999;">
+     
+     <div class="chat_Person"style="height:auto;z-index:9999;overflow-wrap: none;">
+            {% if groupChat %}
+            <h6 class="chat_PersonName" data-toggle="modal" data-target="#myModal"><img src="{{groupInfo.groupPic.url}}" class="chat_PersonPic" >
+            {{groupInfo}}</h6>
+            {% endif %}
+            {% if inbox %}
+            <h6 class="chat_PersonName" data-toggle="modal" data-target="#myModal"><img src="{{friendData.profilePic.url}}" class="chat_PersonPic" >
+            {{friendData}}</h6>
+            {% endif %}  
+      </div>
+
+   </div>
+      <div class="details_Div" id="chatWrapperId">
+      
+      <!--part-->
+      <div class="outer_ChatPerson">
+
+        <div class="chat_Person" >
+          
+          
+        </div>
+      </div>
+      
+      <!--end Part-->
+      
+      <!--Sender Terminal-->
+    <div class="peopleChat">
+      
+
+
+      {% for msg in allMessages %}
+      
+      {% if msg.sender %}
+        {% if msg.sender == myData.userId %}
+          <p class="sender"><a href="/profile/{{myData.userId}}" style="color:rgba(0, 150, 136, 1); text-decoration:none;"><img src="{{myData.profilePic.url}}" class="personProfilePicture"><strong class="ml-2">You</a></strong><br>
+            <span class="ml-5">{{msg.Message}}</span><span class="float-right">{{msg.date|time}}</span></p><br>
+        {% else %}
+          {% if groupChat %}
+          <p class="reciver"><a href="/profile/{{msg.sender}}" style="color:#000000; text-decoration:none;"><img src="{{msg.senderPic}}" class="personProfilePicture"><strong class="ml-2">{{msg.senderName}}</a></strong><br>
+            <span class="ml-5">{{msg.Message}}</span><span class="float-right">{{msg.date|time}}</span></p><br>
+          {% endif %}
+        {% if inbox %}
+        <p class="reciver"><a href="/profile/{{friendData.userId}}" style="color:#000000; text-decoration:none;"><img src="{{friendData.profilePic.url}}" class="personProfilePicture"><strong class="ml-2">{{friendData.firstName}} {{friendData.lastName}}</a></strong><br>
+          <span class="ml-5">{{msg.Message}}</span><span class="float-right">{{msg.date|time}}</span></p><br>
+          {% endif %}
+          {% endif %}
+      {% endif %}
+      {% endfor %}
+      <div class="wrapperClassBlock"></div>
+    
+  </div>
+      </div>
+
+    <input type="hidden" name="username" value="{{myData.userId}}"  id="chat-log" > 
+   <div class="type_msg" >
+            <div class="input_msg_write" >
+              <input type="text" class="write_msg" id="message" name="message" placeholder="Type a message" style="border-bottom:none;width:100%;padding:15px 15px;" >
+              
+              
+
+
+              <span class="material-icons msg_send_btn" id="Chatform">send</span>
+            </div>
+  </div>
+  
+  </div>
+
+</div>
+<!--Edit Group-->
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="editGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="z-index:9999;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" id="modalId12">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Group</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/groupUpdationForm/" method="POST" enctype="multipart/form-data">{%csrf_token%}
+      <div class="modal-body" style="height:60vh;overflow-y:scroll;">
+        <div >
+        <input type="text" hidden name="editFroupgpname" value="{{groupId}}" placeholder="Group name">
+        <input type="text" name="editGroupName" class="form-control" id="updateGroupName" oninput="submitValidation2()"><br>
+        <textarea name="editGroupDescription" class="form-control" placeholder="description" id="updateGroupDescription"></textarea>
+        <br>
+        <input type="file" name="editGroupPic" class="form-control" id="updateGroupPic"><br>
+        <img src="" id="updateGroupPicDiv" style="height:150px;width:100%;"><br>
+        <div id="selectedPeople2"></div><br>
+        <input type="text" name="editGroupSearch" class="form-control" id="tagFriendsTextBoxId2" oninput="tagFriendPeopleTextBox2()"><br>
+        <input type="text" hidden name="editGroupAllFriends" id="allfrendlistId2" placeholder="Add Members">
+        <h4 style="color:grey;">Friends</h4>
+        <div id="friendsListId2" style="height:100px;overflow-y:scroll;"></div>
+        <div >
+        </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Update" id="updateSubmissionButton" >
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal for toggle Information-->
+<div id="myModal" class="modal fade" role="dialog" style="z-index:9999">
+  <div class="modal-dialog modal-sm modal-dialog modal-dialog-centered">
+
+    <!-- Modal content-->
+    <div class="modal-content" id="modalId3">
+      <div class="modal-header">
+        {% if groupChat %}
+        <h4 class="modal-title"><img src="{{groupInfo.groupPic.url}}" id="modelProfile"></h4><span style="padding:12px;">{{groupInfo}}</span>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        {% endif %}
+        {% if inbox %}
+        
+        <h4 class="modal-title" style="color:#fff;"><a href="{{friendData.profilePic.url.url}}" target="_blank" style="color:#fff;"><img src="{{friendData.profilePic.url}}" id="modelProfile">{{friendData}}</h4></a>
+        
+        <button type="button" class="close" data-dismiss="modal" style="color:white;font-weight: bolder;">&times;</button>
+        {% endif %}
+      </div>
+
+      <div class="modal-body">
+        <p style="color:#00a087;">About   and phone number</p>
+        <div>
+          {% if groupChat %}
+          <p style="color:grey;">{{groupInfo.groupInfo}}</p>
+          <hr>
+        {%if groupRights%}
+        <button class="btn" style="border:1px solid #00a087;color:#00a087;" onclick="leaveGroup('{{groupId}}')">Delete Group</button>
+        <h3 data-toggle="modal" data-target="#editGroup" onclick="tagPeopleFun2('{{groupId}}')" class="float-right " data-dismiss="modal" title="Edit" style="color:white;">
+          <i class="fas fa-pencil-alt" style="color:rgba(0,150,136,0.8);"></i>
+        </h3>
+        <h4 style="color:grey;"><strong>Members</strong></h4>
+        {%else%}
+        <button class="btn" style="border:1px solid #00a087;color:#00a087;" onclick="leaveGroup('{{groupId}}')">Leave</button>
+        <h4 style="color:grey;"><strong>Members</strong></h4>
+        {%endif%}
+
+          {% endif %}
+          {% if inbox %}
+          <p>{{friendData.quote}}</p>
+          <hr>
+          <p style="color:grey;">{{friendData.mobile}}</p>
+          <hr>
+        
+        
+          {% endif %}
+          <br>
+          {%if groupInfo%}
+          <p style="color:grey;">{{groupInfo.groupInfo}}</p>
+          {%endif%}
+          
+          <div id="groupCandidates">
+          {%for i,j,k in gpPerson%}
+            <span style="margin-top:8px;padding:2%;"><img src="{{k}}" style="width:40px;height:40px;border-radius:50%;vertical-align: middle;"><a href="/profile/{{j}}/">{{i}}</a></span>
+            <br>
+          {%endfor%}
+        </div>
+        </div>
+       
+        <!-- <hr>
+        
+        <button class="btn" style="border:1px solid #00a087;color:#00a087;">Block</button> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script> -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{%static 'js/statusSocket.js'%}"></script>
+
+{% if inbox %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{%static 'js/TwoWaychat.js'%}"></script>
+{% endif %}
+
+{% if groupChat %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{%static 'js/GroupChat.js'%}"></script>
+{% endif %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+<script type="text/javascript">
+  
+
+
+
+var taggedWholeFriendList;
+function tagPeopleFun1()
+{
+  
+  document.getElementById("tagLoader").style.display="block";
+  $.ajax({
+      method:'POST',
+      url:'/taggedSearchFriends/',
+      data:{
+        
+        action:'groupCreationListfriend',
+      },
+      success:function(e){
+        
+        $('#friendsListId').empty();
+        taggedWholeFriendList = e;
+        console.log(e);
+        document.getElementById("tagLoader").style.display="none";
+        for(i=0;i<(e.name).length;i++)
+        {
+         $('#friendsListId').append('<span id="'+e.userId[i]+'"  onclick="tagging(\''+e.userId[i]+ '\',\''+e.name[i]+ '\')" ><label for="'+e.userId[i]+'"><span><img src="'+e.pic[i]+'" style="width:45px;height:45px;border-radius:50%;margin:8px;"></span>'+e.name[i]+'</label></span><br>');
+        }
+
+      },
+      error:function(data){
+        console.log('Failed');
+      }
+    })
+
+}
+
+
+function tagFriendPeopleTextBox()
+  {
+    $('#friendsListId').empty();
+    var frnd = document.getElementById("tagFriendsTextBoxId").value;
+     for(i=0;i<(taggedWholeFriendList.name).length;i++)
+          {
+            if(((taggedWholeFriendList.name[i].toUpperCase()).search(frnd.toUpperCase()))!=-1)
+            {
+              $('#friendsListId').append('<a href="/profile/'+taggedWholeFriendList.userId[i]+'" onclick="tagging(\''+taggedWholeFriendList.userId[i]+ '\',\''+taggedWholeFriendList.name[i]+ '\')"><label ><span><img src="'+taggedWholeFriendList.pic[i]+'" style="width:45px;height:45px;border-radius:50%;margin:8px;"></span>'+taggedWholeFriendList.name[i]+'</label></a><br>');
+            }
+           
+          }
+  
+  }
+  
+
+  var seperator="";
+  
+  function tagging(val,val2){
+   
+    if(seperator.search(val)<0)
+    {
+      seperator=seperator+","+val;
+      document.getElementById("allfrendlistId").value=seperator;
+    $("#selectedPeople").append('<span class="badge badge-primary" id="Badge'+val+'">'+val2+'<button type="button" class="close" aria-label="Dismiss"  ><span aria-hidden="true" onclick="closeBadge(\''+val+'\')">&times;</span></button></span>');
+    }
+  }
+  
+  function closeBadge(v)
+  {
+    console.log("seperator = "+seperator);
+    console.log(v);
+    
+    seperator=seperator.replace(","+v,"");
+       console.log("seperator = "+seperator);
+       document.getElementById("allfrendlistId").value=seperator;
+    document.getElementById("Badge"+v).remove();
+  }
+
+  function leaveGroup(id)
+  {
+
+    $.ajax({
+      method:'POST',
+      url:'/leaveGroup/',
+      data:{
+        
+        id:id,
+      },
+      success:function(e){
+        
+        console.log(e);
+
+        window.location.replace("/messages/");
+
+      },
+      error:function(data){
+        console.log('Failed');
+      }
+    })
+
+  }
+
+
+//Edit Group
+var seperator2="";
+var taggedWholeFriendList2;
+
+function tagPeopleFun2(gp)
+{
+  
+  
+  $.ajax({
+      method:'POST',
+      url:'/taggedSearchFriends/',
+      
+      data:{
+        
+        action:'groupUpdationListfriend',
+        group:gp,
+      },
+      success:function(e){
+        
+
+        // $('#myModal').modal('hide');
+        $('#friendsListId2').empty();
+        taggedWholeFriendList2 = e;
+        console.log(e);
+        
+        for(i=0;i<(e.name).length;i++)
+        {
+         $('#friendsListId2').append('<span id="'+e.userId[i]+'"  onclick="tagging2(\''+e.userId[i]+ '\',\''+e.name[i]+ '\')" ><label style="color:grey;"><span><img src="'+e.pic[i]+'" style="width:45px;height:45px;border-radius:50%;margin:8px;"></span>'+e.name[i]+'</label></span><br>');
+
+        }
+        seperator2 = "";
+        $("#selectedPeople2").empty();
+        for(i=0;i<(e.member).length;i++)
+          {
+            seperator2=seperator2+","+e.member[i];
+            $("#selectedPeople2").append('<span class="badge badge-primary" id="Badges'+e.member[i]+'">'+e.member[i]+'<button type="button" class="close" aria-label="Dismiss"  ><span aria-hidden="true" onclick="closeBadge2(\''+e.member[i]+'\')">&times;</span></button></span>');
+          }
+
+          document.getElementById("updateGroupName").value=e.groupName;
+          document.getElementById("updateGroupDescription").value=e.groupDescription;
+          document.getElementById("updateGroupPicDiv").src=e.groupPic;
+
+          submitValidation1();
+          submitValidation2();
+
+      },
+      error:function(data){
+        console.log('Failed');
+      }
+    })
+
+}
+
+
+
+
+function tagFriendPeopleTextBox2()
+  {
+    $('#friendsListId2').empty();
+    var frnd = document.getElementById("tagFriendsTextBoxId2").value;
+     for(i=0;i<(taggedWholeFriendList2.name).length;i++)
+          {
+            if(((taggedWholeFriendList2.name[i].toUpperCase()).search(frnd.toUpperCase()))!=-1)
+            {
+              $('#friendsListId2').append('<a href="/profile/'+taggedWholeFriendList2.userId[i]+'" onclick="tagging2(\''+taggedWholeFriendList2.userId[i]+ '\',\''+taggedWholeFriendList2.name[i]+ '\')"><label ><span><img src="'+taggedWholeFriendList2.pic[i]+'" style="width:45px;height:45px;border-radius:50%;margin:8px;"></span>'+taggedWholeFriendList2.name[i]+'</label></a><br>');
+            }
+           
+          }
+  
+  }
+  
+
+  
+  
+  function tagging2(val,val2){
+    
+    
+    if(seperator2.search(val)<0)
+    {
+      seperator2=seperator2+","+val;
+      console.log("Seperator 2"+seperator2);
+      document.getElementById("allfrendlistId2").value=seperator;
+    $("#selectedPeople2").append('<span class="badge badge-primary" id="Badges'+val+'">'+val2+'<button type="button" class="close" aria-label="Dismiss"  ><span aria-hidden="true" onclick="closeBadge2(\''+val+'\')">&times;</span></button></span>');
+    }
+  }
+  
+  function closeBadge2(v)
+  {
+    console.log("seperator2 = "+seperator2);
+    console.log(v);
+    
+    seperator2=seperator2.replace(","+v,"");
+       console.log("seperator2 = "+seperator2);
+       document.getElementById("allfrendlistId2").value=seperator2;
+    document.getElementById("Badges"+v).remove();
+  }
+
+
+//
+
+
+function submitValidation2()
+{
+  v=document.getElementById("updateGroupName").value;
+  if(v.length>0)
+  {
+    document.getElementById("updateSubmissionButton").style.display="block";
+  }
+
+  else
+  {
+    document.getElementById("updateSubmissionButton").style.display="none";
+  }
+}
+
+function submitValidation1()
+{
+  v=document.getElementById("newGroupNameTextBox").value;
+  if(v.length>0)
+  {
+  document.getElementById("createSubmissionButton").style.display="block";
+  }
+  else
+  {
+    document.getElementById("createSubmissionButton").style.display="none";
+  }
+
+}
+
+
+function readURL(input) {
+  
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function(e) {
+      $('#updateGroupPicDiv').attr('src', e.target.result);
+    }
+    
+    reader.readAsDataURL(input.files[0]); // convert to base64 string
+  }
+}
+
+$("#updateGroupPic").change(function() {
+  readURL(this);
+});
+
+
+submitValidation1();
+submitValidation2();
+
+
+// NightMode
+function getCookie(){
+  var nameEQ = "Mode" + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0;i < ca.length;i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1,c.length);
+          if (c.indexOf(nameEQ) == 0) {
+            return c.substring(nameEQ.length,c.length)
+            
+          }
+      }
+  
+  }  
+
+
+  function autoMode(){
+    v=getCookie();
+     
+      if(v=="darkMode"){
+        
+        nightMode(); 
+      }
+      
+      else{
+        
+        dayMode();
+      }
+  
+  }
+  
+function nightMode()
+{
+  
+  document.getElementById("topHeaderDiWrapperDiv").style.backgroundColor="black";
+  document.getElementById("topHeaderDiWrapperDiv").style.boxShadow="0px 0px 23px 0px rgba(0, 150, 136, 1)";  
+  document.getElementsByClassName("all_Friends")[0].style.boxShadow="0px 0px 23px 0px rgba(0, 150, 136, 1)";
+  
+  document.getElementById("wholeBody").style.backgroundColor="black";
+
+  document.getElementById("modalId1").style.backgroundColor="black";
+  document.getElementById("modalId12").style.backgroundColor="black";
+  document.getElementById("modalId3").style.backgroundColor="black";
+  document.getElementsByClassName("chat_Person")[0].style.backgroundColor="grey";
+ document.getElementById("message").style.backgroundColor="black";
+
+
+
+ document.getElementById("modalId1").style.boxShadow="0px 0px 23px 0px rgba(0, 150, 136, 1)";
+ document.getElementById("modalId12").style.boxShadow="0px 0px 23px 0px rgba(0, 150, 136, 1)";
+ document.getElementById("modalId3").style.boxShadow="0px 0px 23px 0px rgba(0, 150, 136, 1)";
+
+document.getElementById("Chatform").style.color="rgba(0,150,136,0.8)";
+
+
+
+}
+
+function dayMode()
+{
+  
+}
+
+  autoMode();
+
+
+</script>
+</body>
+</html>
