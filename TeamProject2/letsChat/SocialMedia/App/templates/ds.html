@@ -216,7 +216,7 @@
 
 <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="">
   
-  <div class="modal-dialog modal-md">
+  <div class="modal-dialog modal-md modal-dialog-centered">
     <div class="modal-content" style="background:rgba(100,100,100,0.5);border:none;" id="storySessionModalContent">
       
           
@@ -273,12 +273,12 @@
 
 
 <!-- Modal for Which type of Story you Prefered -->
-<div class="modal fade bd-Prefered-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal bd-Prefered-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm modal-dialog-centered">
-    <div class="modal-content" style="color:rgba(0,125,136,1);">
+    <div class="modal-content" style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
       <span aria-hidden="true" class="close float-sm-right" data-dismiss="modal" aria-label="Close" style="margin-left:90%;margin-top:2%;color:grey;">&times;</span>
 
-      <h4 class="mt-2 mx-4">story Types</h4>
+      <h6 class="mt-2 mx-4">story Types</h6>
       <hr>
       <span style="margin-left:10px;">
       <a href="/imageStory/" style="text-decoration:none;"><p>+ Photo</p></a>
@@ -341,9 +341,9 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="searchPostResult" tabindex="-1" role="dialog" aria-labelledby="PostResultSearchModel" aria-hidden="true">
+<div class="modal" id="searchPostResult" tabindex="-1" role="dialog" aria-labelledby="PostResultSearchModel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
       <div class="modal-header">
         <h5 class="modal-title" id="PostResultSearchModel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -355,7 +355,7 @@
         <iframe src=""  id="searchPostResultModel"></iframe>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="closeBtnClass" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -521,11 +521,11 @@
 <!--Tag Person Model -->
 
 <!-- Modal -->
-<div class="modal fade" id="tagPeopleModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<div class="modal" id="tagPeopleModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-    <div class="modal-content" style="color:grey;">
+    <div class="modal-content" style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px); border:none;">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalScrollableTitle" style="color:#00a087;">Tag People</h5>
+        <h5 class="modal-title" id="exampleModalScrollableTitle" style="color:grey;text-align: center;font-weight:bold;"><center>Tag People</center></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -535,7 +535,7 @@
           
         </div>
 
-        <input type="text" class="form-control" oninput="tagFriendPeopleTextBox()" id="tagFriendsTextBoxId">
+        <input type="text" class="form-control" oninput="tagFriendPeopleTextBox()" id="tagFriendsTextBoxId" placeholder="Friend name">
         <div class="spinner-border" role="status" id="tagLoader" style="display: none;">
           <span class="sr-only">Loading...</span>
         </div>
@@ -543,10 +543,10 @@
         <div id="tagPeoplenameArea">
 
         </div>
-      </div>
+      </div> 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="TagSubmissionForm()">Tag</button>
+        <button  class="closeBtnClass" data-dismiss="modal">Close</button>
+        <button  class="openBtnClass" onclick="TagSubmissionForm()">Tag</button>
       </div>
     </div>
   </div>
@@ -557,10 +557,10 @@
 <!-- Small modal -->
 
 
-<div class="modal fade AllTagPersonList" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal AllTagPersonList" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm modal-dialog-centered">
     
-    <div class="modal-content" style=padding-left:2%;>
+    <div class="modal-content"  style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
         <span aria-hidden="true" class="close float-sm-right" data-dismiss="modal" aria-label="Close" style="margin-left:90%;margin-top:2%;color:grey;">&times;</span>
 
         <h5 class="" style="color:rgba(0,150,136,0.8);">Tag Person</h5>
@@ -578,11 +578,11 @@
 <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="seeAllComments" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="color:grey;">
+<div class="modal" id="seeAllComments" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle" style="color:rgba(0,150,136,0.8);">All Comments</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle" style="color:grey;text-align: center;font-weight:bold;">All Comments</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -591,7 +591,7 @@
         <div id="seeAllCommentsIdDiv"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="closeBtnClass" data-dismiss="modal">Close</button>
         
       </div>
     </div>
@@ -599,11 +599,11 @@
 </div>
 
 <!--Start Modal for Top Account-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document" style="">
-    <div class="modal-content" id="accountRightSectionPlaceModel">
+    <div class="modal-content" id="accountRightSectionPlaceModel"   style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel" style="color:grey;">Account Setting</h5>
+        <h5 class="modal-title" id="exampleModalLabel" style="color:grey;text-align: center;font-weight:bold;">Account Setting</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

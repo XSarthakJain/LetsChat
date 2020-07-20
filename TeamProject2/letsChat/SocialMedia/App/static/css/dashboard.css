@@ -883,3 +883,35 @@ width:90%;
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
 }
+
+/*/*Save Button Lookup*/
+.openBtnClass
+{
+  border-radius:none;
+  padding:6px 16px;
+  background:#0F75F5;
+  border:none;
+  color:white;
+  
+}
+
+/*Close Button lookup*/
+.closeBtnClass
+{
+  border-radius:none;
+  padding:6px 16px;
+  background:grey;
+  border:none;
+  color:white; 
+
+}
+
+.openBtnClass:hover
+{
+  outline:none;
+}
+
+.closeBtnClass:hover
+{
+  outline:none;
+}
