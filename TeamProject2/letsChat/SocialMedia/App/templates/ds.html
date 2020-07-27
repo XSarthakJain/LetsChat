@@ -20,12 +20,16 @@
   <link rel="stylesheet" type="text/css" href="{%static 'css/lightSlider.css'%}">
   <script type="text/javascript" src="{%static 'js/lightSlider.js'%}"></script>
   <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <link rel="stylesheet" href="{% static 'css/selection.css' %}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" type="text/css" href="{%static 'css/customScrollBar.css'%}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
   <link rel="icon" href="{%static 'images/LetsChat_Icon.png'%}" type="image/x-icon">
   <title>LetsChat</title>
+
+
+
 </head>
 <body >
 <div id="body" style="overflow-x:hidden!important;">
@@ -184,7 +188,7 @@
         <input type="hidden" value="{{userInfo.userId}}" id="currentUserId">
         <!--  -->
           <h4 style="padding-top:8px;" class="middleheading">Create Post</h4>
-          <textarea name="Post_Title" placeholder="what's on your mind?" style="width:90%;height:15vh;padding:2%;resize:none;" oninput="visibleButton()" id="TextPost"></textarea>
+          <textarea name="Post_Title" placeholder="what's in your mind?" style="width:90%;height:15vh;padding:2%;resize:none;" oninput="visibleButton()" id="TextPost"></textarea>
           <div id="PostOpt">
             <a href="#" class="icon"><i class="fas fa-map-marker-alt" id="Post_Icon_Cusomize"></i></a>
             <!-- <a href="#" class="icon"><i class="fas fa-photo-video" id="Post_Icon_Cusomize"> -->
@@ -214,7 +218,7 @@
 <!-- Small modal -->
 
 
-<div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="">
+<div class="modal  bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="">
   
   <div class="modal-dialog modal-md modal-dialog-centered">
     <div class="modal-content" style="background:rgba(100,100,100,0.5);border:none;" id="storySessionModalContent">
@@ -368,7 +372,35 @@
         
 
           <div>
+            {% if not totPost %}
+            <!-- <h5 >
+              <a href="/profile/prashu%20Jain/" style="text-decoration: none;">
+                <img src="{%static 'images/testimonials-2.png'%}" style="width:100px;height:100px;border-radius: 50%;vertical-align: middle;padding:5px;border:2px solid rgba(0,150,136,1);"><span class="mx-3"><span style="color:#000;font-weight: bold;" >Sarthak Jain<i class="far fa-check-circle" style="color:#1DA1F2;padding-left:8px;"></i></span></span>
+              </a></h5>
+              <hr  size="20" style="font-weight: bolder;">
+              <h5 style="color:black;">Hello {{userInfo.firstName}} {{userInfo.lastName}} ,</h5>
+              <h5 style="color:black;">Welcome To LetsChat</h5>
+              <p style="color:black;">Thank you for being a member of <strong style="font-family:LetsChat;">LetsChat</strong> Family.</p> -->
+
+
+
+
+              <div class="box" >
+<h4 title="Sarthak Jain" ><img src="{%static 'images/testimonials-2.png'%}" style="width:100px;height:100px;border-radius:50%;vertical-align: middle;display: inline-block;background:grey;">
+  <span style="">
+  <p style="display: inline-block;font-size: large;"><a href="/profile/prashu%20Jain/" style='color:#050505;text-decoration: none;font-size:18px;font-size: large;margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";'>Sarthak Jain<i class="far fa-check-circle" style="color:#1DA1F2;padding-left:8px;"></i></a><br>
+  <span style='font-size:small;color:grey;font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";'>Founder of LetsChat</span></p></span>
+
+</h4>
+<hr>
+<h3 class="text-left" style='color:grey;font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";'>Hello {{userInfo.firstName}} {{userInfo.lastName}},<br><span style="font-size:large;">Welcome to <strong style="font-family:LetsChat;">LetsChat</strong></span></h3>
+</div>
+            {% endif %}
+            
               {% for data,data2,data4,data5,data6,comment1,comment2,comment3,comment4 in userData %}
+
               <div id="postBox{{data.postId}}">
               {% if data.PostType == 'post' %}
               <a href="/profile/{{data.userId}}" style="text-decoration: none;">
