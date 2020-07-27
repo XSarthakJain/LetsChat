@@ -36,6 +36,7 @@ class userRegistration(models.Model):
     companyDescription = models.CharField(max_length=1000,default='',blank=True)
     is_online = models.BooleanField(default=False,blank=True)
     joinedDate = models.DateTimeField(default=datetime.now)
+    blueTik=models.BooleanField(default=False,blank=True)
 
     def __str__(self):
         return self.firstName + ' ' + self.lastName
