@@ -1,0 +1,5 @@
+/*Select Place Color*/
+::selection{
+    background:rgba(0,150,136,0.5);
+    color:white;
+  }
