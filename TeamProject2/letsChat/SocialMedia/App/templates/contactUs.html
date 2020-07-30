@@ -1,123 +1,142 @@
 {%load static%}
 <!DOCTYPE html>
 <html>
-    <head>
-      <link rel="icon" href="{%static 'images/LetsChat_Icon.png'%}" type="image/x-icon">
-        <title>Contact Us</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://kit.fontawesome.com/b99e675b6e.js"></script> 
-        <link rel="StyleSheet" type="text/css" href="{%static 'css/contactUs.css'%}">
-        <link rel="stylesheet" type="text/css" href="{%static 'css/customScrollBar.css'%}">
-    </head>
-    <body id="wholeBody">  
 
-        <!--Nav Bar-->
-<div class="header-container">
-  <header id="header">
-    <div class="heading">
-      <div class="container">
-        <span id="brandSection"><a href="/"><span id="brand">LetsChat</span></a></span>
+<head>
+  <link rel="icon" href="{%static 'images/LetsChat_Icon.png'%}" type="image/x-icon">
+  <title>Contact Us</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+  <link rel="StyleSheet" type="text/css" href="{%static 'css/contactUs.css'%}">
+  <link rel="stylesheet" type="text/css" href="{%static 'css/customScrollBar.css'%}">
+  <link rel="stylesheet" href="{% static 'css/selection.css' %}">
+
+</head>
+
+<body id="wholeBody">
+
+  <!--Nav Bar-->
+  <div class="header-container">
+    <header id="header">
+      <div class="heading">
+        <div class="container">
+          <span id="brandSection"><a href="/"><span id="brand">LetsChat</span></a></span>
+        </div>
       </div>
-    </div>
-  </header>
-</div>
+    </header>
+  </div>
 
-<br><br><br><br>
+  <br><br><br><br>
 
   <section id="bannerDiv">
     <div>
-    <center><h5>Get in Touch</h5><br>
-    <p>We're here to help and answer any question you might have.we will definatly take an action for you any issue.</p></center>
+      <center>
+        <h5>Get in Touch</h5><br>
+        <p>We're here to help and answer any question you might have.we will definatly take an action for you any issue.
+        </p>
+      </center>
     </div>
   </section>
 
   <section>
-      <div class="container">
-          <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-12 col-12 ">
-              <div id="contactUsForm" >
-                
-              <input type="text" name="userName" placeholder='Name' class="form-control my-2" required autofocus id="userName">
-              <input type="Email" name="Email" placeholder='Email' class="form-control my-2" required id="userEmail">
-              <textarea name="comments" placeholder='Comments' class="form-control my-2" required id="userComment"></textarea >
-              <button class="btn  btn-block" onclick="Submission()">Submit</button>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 col-12 ">
-            <div id="rightContactUsDiv">
-                <h5 id="connectWith">You can Connect with</h5>
-                <a href="mailto:sarthakjain31797@gmail.com"><p class="connectMethod border-bottom"><i class="fas fa-envelope"></i>Email</p></a>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12 ">
+          <div id="contactUsForm">
 
-                <a hrer="https://www.linkedin.com/in/xsarthakjain/" target="_blank" onclick='window.location.href="https://www.linkedin.com/in/xsarthakjain";'><p class="connectMethod"><i class="fab fa-linkedin-in" title="Linked In"></i>Linked In</p></a>
-            </div>  
-            
+            <input type="text" name="userName" placeholder='Name' class="form-control my-2" required autofocus
+              id="userName">
+            <input type="Email" name="Email" placeholder='Email' class="form-control my-2" required id="userEmail">
+            <textarea name="comments" placeholder='Comments' class="form-control my-2" required
+              id="userComment"></textarea>
+            <button class="btn  btn-block" onclick="Submission()">Submit</button>
           </div>
         </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12 ">
+          <div id="rightContactUsDiv">
+            <h5 id="connectWith">You can Connect with</h5>
+            <a href="mailto:sarthakjain31797@gmail.com">
+              <p class="connectMethod border-bottom"><i class="fas fa-envelope"></i>Email</p>
+            </a>
+
+            <a hrer="https://www.linkedin.com/in/xsarthakjain/" target="_blank"
+              onclick='window.location.href="https://www.linkedin.com/in/xsarthakjain";'>
+              <p class="connectMethod"><i class="fab fa-linkedin-in" title="Linked In"></i>Linked In</p>
+            </a>
+          </div>
+
+        </div>
       </div>
+    </div>
   </section>
-<br><br>
-<footer id="footerDiv">            
-    <a href="#" ><h6 id="finalFooter">Copyright ©2020 All rights reserved</h6></a>
-</footer>
+  <br><br>
+  <footer id="footerDiv">
+    <a href="#">
+      <h6 id="finalFooter">Copyright ©2020 All rights reserved</h6>
+    </a>
+  </footer>
 
 
 
-<!-- The actual snackbar -->
-<div id="snackbar"><p id="snackbarText"></p></div>
+  <!-- The actual snackbar -->
+  <div id="snackbar">
+    <p id="snackbarText"></p>
+  </div>
 
 </body>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-  function Submission()
-  {
-    name=document.getElementById("userName").value;
-    email=document.getElementById("userEmail").value;
-    comment=document.getElementById("userComment").value;
+  function Submission() {
+    name = document.getElementById("userName").value;
+    email = document.getElementById("userEmail").value;
+    comment = document.getElementById("userComment").value;
 
-    if(name!="" && email!="" && comment!="")    
-    {
-    $.ajax({
-      method:'POST',
-      url:'/ContactSubmission/',
+    if (name != "" && email != "" && comment != "") {
+      $.ajax({
+        method: 'POST',
+        url: '/ContactSubmission/',
 
-      data:{
-        name:name,
-        email:email,
-        comment:comment,
-      },
-      
-      success:function(e){
-        console.log(e);
+        data: {
+          name: name,
+          email: email,
+          comment: comment,
+        },
 
-      document.getElementById("userName").value="";
-      document.getElementById("userEmail").value="";
-      document.getElementById("userComment").value="";
-      document.getElementById("snackbarText").innerHTML="Your Comment has been Saved.";
+        success: function (e) {
+          console.log(e);
+
+          document.getElementById("userName").value = "";
+          document.getElementById("userEmail").value = "";
+          document.getElementById("userComment").value = "";
+          document.getElementById("snackbarText").innerHTML = "Your Comment has been Saved.";
+          myFunction();
+        },
+        error: function (data) {
+          console.log('Failed');
+          document.getElementById("snackbarText").innerHTML = "Your Comment has not Saved.";
+          myFunction();
+        }
+      })
+    }
+    else {
+      document.getElementById("snackbarText").innerHTML = "Please Fill all details";
       myFunction();
-      },
-      error:function(data){
-        console.log('Failed');
-        document.getElementById("snackbarText").innerHTML="Your Comment has not Saved.";
-        myFunction();
-      }
-    })
-  }
-  else
-  {
-    document.getElementById("snackbarText").innerHTML="Please Fill all details";
-    myFunction();
-  }
+    }
   }
 
 
@@ -125,76 +144,74 @@
 
 
   function myFunction() {
-  // Get the snackbar DIV
-  var x = document.getElementById("snackbar");
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
 
-  // Add the "show" class to DIV
-  x.className = "show";
+    // Add the "show" class to DIV
+    x.className = "show";
 
-  // After 3 seconds, remove the show class from DIV
-  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
-}
-
-
-
-
-//NightMode
-function getCookie(){
-  var nameEQ = "Mode" + "=";
-      var ca = document.cookie.split(';');
-      for(var i=0;i < ca.length;i++) {
-          var c = ca[i];
-          while (c.charAt(0)==' ') c = c.substring(1,c.length);
-          if (c.indexOf(nameEQ) == 0) {
-            return c.substring(nameEQ.length,c.length)
-            
-          }
-      }
-  
-  }  
-
-
-  function autoMode(){
-    v=getCookie();
-     
-      if(v=="darkMode"){
-        
-        nightMode(); 
-      }
-      
-      else{
-        
-        dayMode();
-      }
-     
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
   }
-  
-function nightMode()
-{
-  
-  document.getElementById("header").style.backgroundColor="black";  
-  document.getElementById("header").style.boxShadow="0px 0px 23px 0px rgba(0, 150, 136, 1)";
-  document.getElementById("contactUsForm").style.boxShadow="0px 0px 23px 0px rgba(0, 150, 136, 1)";
-  document.getElementById("wholeBody").style.backgroundColor="black";
-  document.getElementById("footerDiv").style.backgroundColor="black";
-  document.getElementById("finalFooter").style.backgroundColor="black";
-
-  document.getElementById("connectWith").style.color="rgba(0,150,136,0.8)";
-  document.getElementById("footerDiv").style.boxShadow="0px 0px 23px 0px rgba(0, 150, 136, 1)";
 
 
 
 
-}
+  //NightMode
+  function getCookie() {
+    var nameEQ = "Mode" + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) {
+        return c.substring(nameEQ.length, c.length)
 
-function dayMode()
-{
-  
-}
+      }
+    }
+
+  }
+
+
+  function autoMode() {
+    v = getCookie();
+
+    if (v == "darkMode") {
+
+      nightMode();
+    }
+
+    else {
+
+      dayMode();
+    }
+
+  }
+
+  function nightMode() {
+
+    document.getElementById("header").style.backgroundColor = "black";
+    document.getElementById("header").style.boxShadow = "0px 0px 23px 0px rgba(0, 150, 136, 1)";
+    document.getElementById("contactUsForm").style.boxShadow = "0px 0px 23px 0px rgba(0, 150, 136, 1)";
+    document.getElementById("wholeBody").style.backgroundColor = "black";
+    document.getElementById("footerDiv").style.backgroundColor = "black";
+    document.getElementById("finalFooter").style.backgroundColor = "black";
+
+    document.getElementById("connectWith").style.color = "rgba(0,150,136,0.8)";
+    document.getElementById("footerDiv").style.boxShadow = "0px 0px 23px 0px rgba(0, 150, 136, 1)";
+
+
+
+
+  }
+
+  function dayMode() {
+
+  }
 
   autoMode();
 
-  
+
 </script>
 
 

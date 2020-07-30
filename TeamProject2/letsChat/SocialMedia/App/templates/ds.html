@@ -2,20 +2,23 @@
 {% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-  
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">  
-  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
   <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="{%static 'css/emojionearea.min.css'%}">
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-  
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
   <script src="{%static 'js/emojionearea.min.js'%}"></script>
   <link rel="stylesheet" type="text/css" href="{%static 'css/lightSlider.css'%}">
   <script type="text/javascript" src="{%static 'js/lightSlider.js'%}"></script>
@@ -31,295 +34,331 @@
 
 
 </head>
-<body >
-<div id="body" style="overflow-x:hidden!important;">
 
-<div class="container-fluid">
-{% for message in messages %}
-  <strong>Message: </strong>{{ message }}
-{% endfor %}
+<body>
+  <div id="body" style="overflow-x:hidden!important;">
 
-
-
+    <div class="container-fluid">
+      {% for message in messages %}
+      <strong>Message: </strong>{{ message }}
+      {% endfor %}
 
 
-<div class="header-container">
-  <header id="header">
-    <div class="heading">
-      <div class="container">
 
 
-      <span id="searchBoxSectionContainer">
-        <center>
-        <form  action="/search/" method="POST" >{% csrf_token %}
 
-        <span>
+      <div class="header-container">
+        <header id="header">
+          <div class="heading">
+            <div class="container">
 
-          <strong><span class="material-icons" onclick="closeTopSearchBar()" style="font-size:x-large;cursor:pointer;" title="Back">
-            keyboard_backspace
-          </span></strong>
-        </span>
-        <input type="text" placeholder="Search here.." id="topsearchBox" name="search" class="" style="" placeholder="find your friend" autofocus>
-        
-      </form>
-        </center>
-      </span>
 
-      <span id="brandSection"><a href="/"><span id="brand">LetsChat</span></a></span>
-      
+              <span id="searchBoxSectionContainer">
+                <center>
+                  <form action="/search/" method="POST">{% csrf_token %}
 
-      <span class="float-sm-right" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-user top-right" ></i>
-      </span>
+                    <span>
 
-        <span id="noti_Container" class="float-right">
-          <span id="noti_Counter">
-          {% if totalNotification != 0 %}
-          
-            {{totalNotification}}
-          {% endif %}</span>   <!--SHOW NOTIFICATIONS COUNT.-->
-                
+                      <strong><span class="material-icons" onclick="closeTopSearchBar()"
+                          style="font-size:x-large;cursor:pointer;" title="Back">
+                          keyboard_backspace
+                        </span></strong>
+                    </span>
+                    <input type="text" placeholder="Search here.." id="topsearchBox" name="search" class="" style=""
+                      placeholder="find your friend" autofocus>
+
+                  </form>
+                </center>
+              </span>
+
+              <span id="brandSection"><a href="/"><span id="brand">LetsChat</span></a></span>
+
+
+              <span class="float-sm-right" data-toggle="modal" data-target="#exampleModal"><i
+                  class="fas fa-user top-right"></i>
+              </span>
+
+              <span id="noti_Container" class="float-right">
+                <span id="noti_Counter">
+                  {% if totalNotification != 0 %}
+
+                  {{totalNotification}}
+                  {% endif %}</span>
+                <!--SHOW NOTIFICATIONS COUNT.-->
+
                 <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                <a id="noti_Button" onclick="viewNotification('c')"><i class="fas fa-bell top-right float-right"></i></a>    
+                <a id="noti_Button" onclick="viewNotification('c')"><i
+                    class="fas fa-bell top-right float-right"></i></a>
 
-                <!--THE NOTIFICAIONS DROPDOWN BOX.-->   
+                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                 <div id="notifications" class="float-right">
-                    <h3 id="noti_heading">Notifications</h3><hr>
-                    <div style="height:300px;overflow-y:scroll;">
+                  <h3 id="noti_heading">Notifications</h3>
+                  <hr>
+                  <div style="height:300px;overflow-y:scroll;">
                     {% for data3,data4 in notification %}
                     {% if data3.notificationType == "comment" or data3.notificationType == "like" %}
-                      <div id="{{data.sender}}" style="padding: 1%;">
-                       <a href="/showPost/{{data3.postId}}/" style="text-decoration:none;" onclick="window.location.href ='/showPost/{{data3.postId}}/';" >
+                    <div id="{{data.sender}}" style="padding: 1%;">
+                      <a href="/showPost/{{data3.postId}}/" style="text-decoration:none;"
+                        onclick="window.location.href ='/showPost/{{data3.postId}}/';">
                         <span style="margin-top:18px;">
 
                           <div class="row">
                             <div class="col-lg-2 col-md-2 col-sm-2 col-2">
-                            <img src="{{data4}}" class="profilePic" style="width: 40px;height:40px;border-radius:50%;vertical-align: middle;">
+                              <img src="{{data4}}" class="profilePic"
+                                style="width: 40px;height:40px;border-radius:50%;vertical-align: middle;">
                             </div>
                             <div class="col-lg-10 col-md-10 col-sm-10 col-10">
-                                {{data3.notification}}
+                              {{data3.notification}}
                             </div>
-                            </div>
-                                </span>
-                        </a>
-                        
-                      </div>
-                      {% elif data3.notificationType == "friend" %}
-                      <div id="{{data.sender}}" style="padding: 1%;">
-                        <a href="/profile/{{data.sender}}/" style="text-decoration:none;" onclick="location.replace('/profile/{{data3.sender}}/'),'_top'" >
-                         <span style="margin-top:18px;">
-                            <img src="{{data4}}" class="profilePic" style="width: 40px;height:40px;border-radius:50%;vertical-align: middle;">
-                       
-                                 {{data3.notification}}
-                                 </span>
-                         </a>
-                         
-                       </div>
+                          </div>
+                        </span>
+                      </a>
 
-                      {% endif %}
-                      {% endfor %}
                     </div>
-                    <div class="seeAll" id="seeAll" ><a href="/notifications/" onclick="location.replace('/notifications/'),'_top'">See All</a></div>
+                    {% elif data3.notificationType == "friend" %}
+                    <div id="{{data.sender}}" style="padding: 1%;">
+                      <a href="/profile/{{data.sender}}/" style="text-decoration:none;"
+                        onclick="location.replace('/profile/{{data3.sender}}/'),'_top'">
+                        <span style="margin-top:18px;">
+                          <img src="{{data4}}" class="profilePic"
+                            style="width: 40px;height:40px;border-radius:50%;vertical-align: middle;">
+
+                          {{data3.notification}}
+                        </span>
+                      </a>
+
+                    </div>
+
+                    {% endif %}
+                    {% endfor %}
+                  </div>
+                  <div class="seeAll" id="seeAll"><a href="/notifications/"
+                      onclick="location.replace('/notifications/'),'_top'">See All</a></div>
                 </div>
-          </span>
-      
-      <span class="float-sm-right"><i class="fas fa-search top-right" onclick="searchPeople()"></i></span>
+              </span>
 
-      </span>     
+              <span class="float-sm-right"><i class="fas fa-search top-right" onclick="searchPeople()"></i></span>
+
+              </span>
+            </div>
+          </div>
+        </header>
       </div>
-    </div>
-  </header>
-</div>
 
-<!--Left Fixed Div-->
-<div id="leftFixDiv">
-  <br><br><br><br><br>
-  <a href="/profile/{{userInfo.userName}}"><img src="{{userInfo.profilePic.url}}" id="profilePicImage" class='img-responsive'>
-  </a>
-  <marquee direction="left" height="20" width="110" class="maquee_text">
-    <h5 id="mynameId">{{userInfo.firstName}} {{userInfo.lastName}}</h5>
-  </marquee>
-  <hr id="profileInsideHR">
-  
-  <a href="{%url 'friendSearch'%}" class="sideOptionIconLink">
+      <!--Left Fixed Div-->
+      <div id="leftFixDiv">
+        <br><br><br><br><br>
+        <a href="/profile/{{userInfo.userName}}"><img src="{{userInfo.profilePic.url}}" id="profilePicImage"
+            class='img-responsive'>
+        </a>
+        <marquee direction="left" height="20" width="110" class="maquee_text">
+          <h5 id="mynameId">{{userInfo.firstName}} {{userInfo.lastName}}</h5>
+        </marquee>
+        <hr id="profileInsideHR">
+
+        <a href="{%url 'friendSearch'%}" class="sideOptionIconLink">
           <span class="icon"><i class="fas fa-user-friends">
-          </i></span>
-       <span class="title">Friends</span>
-    </a>
-    <br>
-    <a href="/album/" class="sideOptionIconLink">
+            </i></span>
+          <span class="title">Friends</span>
+        </a>
+        <br>
+        <a href="/album/" class="sideOptionIconLink">
           <span class="icon"><i class="fas fa-photo-video"></i></span>
           <span class="title">Photos</span>
-    </a>
-    <br>
-    <a href="/messages/" class="sideOptionIconLink">
+        </a>
+        <br>
+        <a href="/messages/" class="sideOptionIconLink">
           <span class="icon"><i class="far fa-comment-alt"></i></span>
           <span class="title">Messages</span>
-    </a>
-    <br>
-    <a href="/About/" class="sideOptionIconLink">
+        </a>
+        <br>
+        <a href="/About/" class="sideOptionIconLink">
           <span class="icon"><i class="fas fa-address-card"></i></span>
           <span class="title">About Us</span>
-    </a>
-    <br>
+        </a>
+        <br>
 
-    <a href="/Contact/" class="sideOptionIconLink">
+        <a href="/Contact/" class="sideOptionIconLink">
           <span class="icon"><i class="fas fa-id-card-alt"></i></span>
           <span class="title">Contact Us</span>
-    </a>
-    <br>
+        </a>
+        <br>
 
 
-  
-</div>
 
-
-<br><br><br><br><br><br>
-<div class="container-fluid">
-
-<div id="rightSideDiv">
-  <div class="">
-      
-      
-      <form method="Post" action="{% url 'PostSubmission' %}" id="PostWrapper"  enctype="multipart/form-data">
-        {% csrf_token %}
-        <!-- FOR JS TO WORK -->
-        <input type="hidden" value="{{userInfo.firstName}} {{userInfo.lastName}}" id="currentUserFullName">
-        <input type="hidden" value="{{userInfo.profilePic.url}}" id="currentUserPic">
-        <input type="hidden" value="{{userInfo.userId}}" id="currentUserId">
-        <!--  -->
-          <h4 style="padding-top:8px;" class="middleheading">Create Post</h4>
-          <textarea name="Post_Title" placeholder="what's in your mind?" style="width:90%;height:15vh;padding:2%;resize:none;" oninput="visibleButton()" id="TextPost"></textarea>
-          <div id="PostOpt">
-            <a href="#" class="icon"><i class="fas fa-map-marker-alt" id="Post_Icon_Cusomize"></i></a>
-            <!-- <a href="#" class="icon"><i class="fas fa-photo-video" id="Post_Icon_Cusomize"> -->
-              <label id="upfile1" style="cursor:pointer" class="fas fa-photo-video icon">
-                <input type="file" name="MediaFile"  class="fas fa-photo-video" id="file1" style="display:none;">
-              </label></i></a>
-            <a href="#" class="icon"><i class="far fa-grin" id="Post_Icon_Cusomize" onclick="emojiCreater()"></i></a>
-            <input type="submit" name="Post" id="SubmitPost" style="display:none;" value="Post">
-          </div>
-        </form>
       </div>
-      <br><br>
 
 
-      <!--Story-->
-        <div style="background:rgba(191, 191, 191, 0.5);padding:2%;width:90%;" id="wrapperstorySectionId">
-          <h4 class="middleheading">Story</h4><br>
+      <br><br><br><br><br><br>
+      <div class="container-fluid">
 
-    
-
-
-
-<!-- The actual snackbar -->
-<div id="snackbar"><p id="snackbarMessage"></p></div>
-  
-
-<!-- Small modal -->
+        <div id="rightSideDiv">
+          <div class="">
 
 
-<div class="modal  bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="">
-  
-  <div class="modal-dialog modal-md modal-dialog-centered">
-    <div class="modal-content" style="background:rgba(100,100,100,0.5);border:none;" id="storySessionModalContent">
-      
-          
-      
-      <p class="modal-title" id="exampleModalCenterTitle" >
-                  <img src="{%static 'images/setting.png'%}"  class="storyProfileSection">
-                  <span id="textStoryVisiblePersonName" >
-                    loading...
-                  </span>
-                  <span aria-hidden="true" class="close float-sm-right" data-dismiss="modal" aria-label="Close" style="margin-left:60%;color:white;">&times;</span>
-        </p>
-        
-      <center>
-                  <div id="VisibleStoryTextBodySection" style="margin-bottom:2%;">
-                    
-                    <!--start Carousel-->
+            <form method="Post" action="{% url 'PostSubmission' %}" id="PostWrapper" enctype="multipart/form-data">
+              {% csrf_token %}
+              <!-- FOR JS TO WORK -->
+              <input type="hidden" value="{{userInfo.firstName}} {{userInfo.lastName}}" id="currentUserFullName">
+              <input type="hidden" value="{{userInfo.profilePic.url}}" id="currentUserPic">
+              <input type="hidden" value="{{userInfo.userId}}" id="currentUserId">
+              <!--  -->
+              <h4 style="padding-top:8px;" class="middleheading">Create Post</h4>
+              <textarea name="Post_Title" placeholder="what's in your mind?"
+                style="width:90%;height:15vh;padding:2%;resize:none;" oninput="visibleButton()"
+                id="TextPost"></textarea>
+              <div id="PostOpt">
+                <a href="#" class="icon"><i class="fas fa-map-marker-alt" id="Post_Icon_Cusomize"></i></a>
+                <!-- <a href="#" class="icon"><i class="fas fa-photo-video" id="Post_Icon_Cusomize"> -->
+                <label id="upfile1" style="cursor:pointer" class="fas fa-photo-video icon">
+                  <input type="file" name="MediaFile" class="fas fa-photo-video" id="file1" style="display:none;">
+                </label></i></a>
+                <a href="#" class="icon"><i class="far fa-grin" id="Post_Icon_Cusomize"
+                    onclick="emojiCreater()"></i></a>
+                <input type="submit" name="Post" id="SubmitPost" style="display:none;" value="Post">
+              </div>
+            </form>
+          </div>
+          <br><br>
+
+
+          <!--Story-->
+          <div style="background:rgba(191, 191, 191, 0.5);padding:2%;width:90%;" id="wrapperstorySectionId">
+            <h4 class="middleheading">Story</h4><br>
+
+
+
+
+
+            <!-- The actual snackbar -->
+            <div id="snackbar">
+              <p id="snackbarMessage"></p>
+            </div>
+
+
+            <!-- Small modal -->
+
+
+            <div class="modal  bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+              aria-hidden="true" style="">
+
+              <div class="modal-dialog modal-md modal-dialog-centered">
+                <div class="modal-content" style="background:rgba(100,100,100,0.5);border:none;"
+                  id="storySessionModalContent">
+
+
+
+                  <p class="modal-title" id="exampleModalCenterTitle">
+                    <img src="{%static 'images/setting.png'%}" class="storyProfileSection">
+                    <span id="textStoryVisiblePersonName">
+                      loading...
+                    </span>
+                    <span aria-hidden="true" class="close float-sm-right" data-dismiss="modal" aria-label="Close"
+                      style="margin-left:60%;color:white;">&times;</span>
+                  </p>
+
+                  <center>
+                    <div id="VisibleStoryTextBodySection" style="margin-bottom:2%;">
+
+                      <!--start Carousel-->
                       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner" id="storySlidesId">
-    
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-                    <!--end Carousel-->
+                        <div class="carousel-inner" id="storySlidesId">
 
-                  </div><br>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                          data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                          data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </div>
+                      <!--end Carousel-->
 
-                  <div id="StoryReplySectionPlaceId">   
-                    <!-- <textarea class="form-control my-1" id="textStoryCommentReplay" placeholder="reply here..." style="resize: none;"></textarea>  
+                    </div><br>
+
+                    <div id="StoryReplySectionPlaceId">
+                      <!-- <textarea class="form-control my-1" id="textStoryCommentReplay" placeholder="reply here..." style="resize: none;"></textarea>  
                     
                     <button type="button" class="btn-block  btn-primary " id="textStoryCommentReplaySubmission" onclick="storyReply()">Send
                     </button> -->
-                    <div class="row" style="border-radius: 25px;margin:2%;border:2px solid white;">
-                      <div class="col-lg-10 col-md-10 col-sm-10 col-10" style="display: flex;justify-content: center;align-items: center;">
-                        <textarea id="textStoryCommentReplay" placeholder="Reply here..." style="margin-top:5%;padding-left: 4%;"></textarea>
+                      <div class="row" style="border-radius: 25px;margin:2%;border:2px solid white;">
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-10"
+                          style="display: flex;justify-content: center;align-items: center;">
+                          <textarea id="textStoryCommentReplay" placeholder="Reply here..."
+                            style="margin-top:5%;padding-left: 4%;"></textarea>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-2"
+                          style="display: flex;justify-content: center;align-items: center;">
+                          <span class="material-icons" id="textStoryCommentReplaySubmission" style="cursor:pointer;"
+                            onclick="storyReply()">send</span>
+                        </div>
                       </div>
-                      <div class="col-lg-2 col-md-2 col-sm-2 col-2" style="display: flex;justify-content: center;align-items: center;">
-                        <span class="material-icons" id="textStoryCommentReplaySubmission" style="cursor:pointer;" onclick="storyReply()">send</span>
-                      </div>
+
+
                     </div>
-                    
-                     
-                  </div>
-        </center>
-    </div>
-  </div>
-</div>
+                  </center>
+                </div>
+              </div>
+            </div>
 
 
-<!-- Modal for Which type of Story you Prefered -->
-<div class="modal bd-Prefered-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
-    <div class="modal-content" style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
-      <span aria-hidden="true" class="close float-sm-right" data-dismiss="modal" aria-label="Close" style="margin-left:90%;margin-top:2%;color:grey;">&times;</span>
+            <!-- Modal for Which type of Story you Prefered -->
+            <div class="modal bd-Prefered-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content"
+                  style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
+                  <span aria-hidden="true" class="close float-sm-right" data-dismiss="modal" aria-label="Close"
+                    style="margin-left:90%;margin-top:2%;color:grey;">&times;</span>
 
-      <h6 class="mt-2 mx-4">story Types</h6>
-      <hr>
-      <span style="margin-left:10px;">
-      <a href="/imageStory/" style="text-decoration:none;"><p>+ Photo</p></a>
-      
-      <a href="/textStory/" style="text-decoration:none;"><p>+ Text</p></a>
-      </span>
-    </div>
-  </div>
-</div>
-          <!--Slider-->
-          <h6 style="color:rgba(0,125,136,1);font-weight:bold;cursor:pointer;" data-toggle="modal" data-target=".bd-Prefered-modal-sm">+ Upload Story</h6><br>
+                  <h6 class="mt-2 mx-4">story Types</h6>
+                  <hr>
+                  <span style="margin-left:10px;">
+                    <a href="/imageStory/" style="text-decoration:none;">
+                      <p>+ Photo</p>
+                    </a>
 
-          <ul id="autoWidth" class="cs-hidden">
-          {% for data,d in storyData %}
+                    <a href="/textStory/" style="text-decoration:none;">
+                      <p>+ Text</p>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!--Slider-->
+            <h6 style="color:rgba(0,125,136,1);font-weight:bold;cursor:pointer;" data-toggle="modal"
+              data-target=".bd-Prefered-modal-sm">+ Upload Story</h6><br>
+
+            <ul id="autoWidth" class="cs-hidden">
+              {% for data,d in storyData %}
 
 
-            
-            
-              <li class="item-a"  data-toggle="modal" data-target=".bd-example-modal-md" onclick="storyTextSetPlaceManager('{{d.0}}','{{d.1}}','{{d.2}}','{{d.3}}','{{d.4}}','{{d.5}}','{{d.6}}','{{d.7}}','{{data.userName}}','{{data.profilePic.url}}')">
-              
-             
-                
+
+
+              <li class="item-a" data-toggle="modal" data-target=".bd-example-modal-md"
+                onclick="storyTextSetPlaceManager('{{d.0}}','{{d.1}}','{{d.2}}','{{d.3}}','{{d.4}}','{{d.5}}','{{d.6}}','{{d.7}}','{{data.userName}}','{{data.profilePic.url}}')">
+
+
+
                 <div class="storySection" style="">
                   <div class="storyInnerSection">
 
 
-                    <img src="{{data.profilePic.url}}"  class="storyProfileSection" >
+                    <img src="{{data.profilePic.url}}" class="storyProfileSection">
                     <p style="text-align: left; color:white;">{{data.userName}}</p>
                   </div>
 
                 </div>
 
               </li>
-            {% endfor %}
-         
+              {% endfor %}
 
-            <!--<li class="item-b" data-toggle="modal" data-target=".exampleModalCenter" onclick="storySetPlace('Hay i am sarthak JAIN','utkarsh JAIN','{%static 'images/profile.jpeg'%}','{%static 'images/slider-bg-01.jpg'%}','yellow','Impact,Charcoal,sans-serif')">
+
+              <!--<li class="item-b" data-toggle="modal" data-target=".exampleModalCenter" onclick="storySetPlace('Hay i am sarthak JAIN','utkarsh JAIN','{%static 'images/profile.jpeg'%}','{%static 'images/slider-bg-01.jpg'%}','yellow','Impact,Charcoal,sans-serif')">
               
               <div class="storySection" style="">
                 <div class="storyInnerSection">
@@ -331,49 +370,51 @@
 
             </li>-->
 
-     
-          </ul>
 
-      </div> 
-     
-        <br><br>
+            </ul>
 
+          </div>
 
-    <!--Search Post Result-->
-
-    <!-- Button trigger modal -->
+          <br><br>
 
 
-<!-- Modal -->
-<div class="modal" id="searchPostResult" tabindex="-1" role="dialog" aria-labelledby="PostResultSearchModel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content" style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
-      <div class="modal-header">
-        <h5 class="modal-title" id="PostResultSearchModel"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+          <!--Search Post Result-->
 
-        <iframe src=""  id="searchPostResultModel"></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="closeBtnClass" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+          <!-- Button trigger modal -->
 
-    <!--End Search Post Result-->
 
-     <div style="background:rgba(191, 191, 191, 0.5);width:90%;padding:2%;" id="postAllSectionId" >
+          <!-- Modal -->
+          <div class="modal" id="searchPostResult" tabindex="-1" role="dialog" aria-labelledby="PostResultSearchModel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content"
+                style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="PostResultSearchModel"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
 
-        
+                  <iframe src="" id="searchPostResultModel"></iframe>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="closeBtnClass" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <div>
-            {% if not totPost %}
-            <!-- <h5 >
+          <!--End Search Post Result-->
+
+          <div style="background:rgba(191, 191, 191, 0.5);width:90%;padding:2%;" id="postAllSectionId">
+
+
+
+            <div>
+              {% if not totPost %}
+              <!-- <h5 >
               <a href="/profile/prashu%20Jain/" style="text-decoration: none;">
                 <img src="{%static 'images/testimonials-2.png'%}" style="width:100px;height:100px;border-radius: 50%;vertical-align: middle;padding:5px;border:2px solid rgba(0,150,136,1);"><span class="mx-3"><span style="color:#000;font-weight: bold;" >Sarthak Jain<i class="far fa-check-circle" style="color:#1DA1F2;padding-left:8px;"></i></span></span>
               </a></h5>
@@ -385,285 +426,357 @@
 
 
 
-              <div class="box" >
-<h4 title="Sarthak Jain" ><img src="{%static 'images/testimonials-2.png'%}" style="width:100px;height:100px;border-radius:50%;vertical-align: middle;display: inline-block;background:grey;">
-  <span style="">
-  <p style="display: inline-block;font-size: large;"><a href="/profile/prashu%20Jain/" style='color:#050505;text-decoration: none;font-size:18px;font-size: large;margin-bottom: .5rem;
+              <div class="box">
+                <h4 title="Sarthak Jain"><img src="{%static 'images/testimonials-2.png'%}"
+                    style="width:100px;height:100px;border-radius:50%;vertical-align: middle;display: inline-block;background:grey;">
+                  <span style="">
+                    <p style="display: inline-block;font-size: large;"><a href="/profile/prashu%20Jain/"
+                        style='color:#050505;text-decoration: none;font-size:18px;font-size: large;margin-bottom: .5rem;
     font-weight: 500;
-    line-height: 1.2;font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";'>Sarthak Jain<i class="far fa-check-circle" style="color:#1DA1F2;padding-left:8px;"></i></a><br>
-  <span style='font-size:small;color:grey;font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";'>Founder of LetsChat</span></p></span>
+    line-height: 1.2;font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";'>Sarthak
+                        Jain<i class="far fa-check-circle" style="color:#1DA1F2;padding-left:8px;"></i></a><br>
+                      <span
+                        style='font-size:small;color:grey;font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";'>Founder
+                        of LetsChat</span></p>
+                  </span>
 
-</h4>
-<hr>
-<h3 class="text-left" style='color:grey;font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";'>Hello {{userInfo.firstName}} {{userInfo.lastName}},<br><span style="font-size:large;">Welcome to <strong style="font-family:LetsChat;">LetsChat</strong></span></h3>
-</div>
-            {% endif %}
-            
+                </h4>
+                <hr>
+                <h3 class="text-left"
+                  style='color:grey;font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";'>
+                  Hello {{userInfo.firstName}} {{userInfo.lastName}},<br><span style="font-size:large;">Welcome to
+                    <strong style="font-family:LetsChat;">LetsChat</strong></span></h3>
+              </div>
+              {% endif %}
+
               {% for data,data2,data4,data5,data6,comment1,comment2,comment3,comment4 in userData %}
 
               <div id="postBox{{data.postId}}">
-              {% if data.PostType == 'post' %}
-              <a href="/profile/{{data.userId}}" style="text-decoration: none;">
-              <img src="{{data.userPic}}" style="width:50px;height:50px;border-radius: 50%;vertical-align: middle;">
-              <span style="font-weight:bold;padding-left:8px;color:rgba(0,125,136,1);"  >{{data.userName}} <span id="profile{{data.postId}}">
-                            </a><span style="color:black;">
-                            {%for nm in data5%}
-                            is with <a href = "/profile/{{nm.userName}}"><span style="color:rgba(0,125,136,1);">{{nm.firstName}} {{nm.lastName}}</span></a>
-                            {%endfor%}
-                            {% if data6 %}
-                            and <span style="color:rgba(0,125,136,1);">{{data6}}</span> <span onclick = "allTagList('{{data.postId}}')" data-toggle="modal" data-target=".AllTagPersonList" style="color:rgba(0,125,136,1);">others</span></span>
-                            {%endif%}</span>
-              
-              
-              {% elif data.PostType == 'profilePhoto' %}
-              <img src="{{data.userPic}}" style="width:50px;height:50px;border-radius: 50%;vertical-align: middle;">
-              <span style="font-weight:bold;padding-left:8px;color:rgba(0,125,136,1);" >{{data.userName}}<span id="profile{{data.postId}}"></span>
-              <span style="color: gray; font-weight:normal;"> updated his profile photo.</span>
-              {% else %}
-              <img src="{{data.userPic}}" style="width:50px;height:50px;border-radius: 50%;vertical-align: middle;">
-              <span style="font-weight:bold;padding-left:8px;color:rgba(0,125,136,1);" >{{data.userName}}<span id="profile{{data.postId}}"></span>
-                <span style="color: gray; font-weight:normal;"> updated his cover photo.</span>
-              {% endif %}
+                {% if data.PostType == 'post' %}
+                <a href="/profile/{{data.userId}}" style="text-decoration: none;">
+                  <img src="{{data.userPic}}" style="width:50px;height:50px;border-radius: 50%;vertical-align: middle;">
+                  <span style="font-weight:bold;padding-left:8px;color:rgba(0,125,136,1);">{{data.userName}} <span
+                      id="profile{{data.postId}}">
+                </a><span style="color:black;">
+                  {%for nm in data5%}
+                  is with <a href="/profile/{{nm.userName}}"><span style="color:rgba(0,125,136,1);">{{nm.firstName}}
+                      {{nm.lastName}}</span></a>
+                  {%endfor%}
+                  {% if data6 %}
+                  and <span style="color:rgba(0,125,136,1);">{{data6}}</span> <span
+                    onclick="allTagList('{{data.postId}}')" data-toggle="modal" data-target=".AllTagPersonList"
+                    style="color:rgba(0,125,136,1);">others</span></span>
+                {%endif%}</span>
 
-              
-              <div class="btn-group dropleft float-sm-right">
-                <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none;background:none;">
-                  <i class="fas fa-ellipsis-v"></i>
-                </button>
-                
-                  <!-- Dropdown menu links -->
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="border-radius: 12px;border:none;">
 
-                <!-- <center> -->
-                <button class="dropdown-item" type="button" >
-                  <form method="POST" action = "/reportGetPost/" class="border-bottom">{% csrf_token %}
-                    {% if data.post %}
-                    <input type="text" name="pic" value="
+                {% elif data.PostType == 'profilePhoto' %}
+                <img src="{{data.userPic}}" style="width:50px;height:50px;border-radius: 50%;vertical-align: middle;">
+                <span style="font-weight:bold;padding-left:8px;color:rgba(0,125,136,1);">{{data.userName}}<span
+                    id="profile{{data.postId}}"></span>
+                  <span style="color: gray; font-weight:normal;"> updated his profile photo.</span>
+                  {% else %}
+                  <img src="{{data.userPic}}" style="width:50px;height:50px;border-radius: 50%;vertical-align: middle;">
+                  <span style="font-weight:bold;padding-left:8px;color:rgba(0,125,136,1);">{{data.userName}}<span
+                      id="profile{{data.postId}}"></span>
+                    <span style="color: gray; font-weight:normal;"> updated his cover photo.</span>
+                    {% endif %}
+
+
+                    <div class="btn-group dropleft float-sm-right">
+                      <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" style="border:none;background:none;">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </button>
+
+                      <!-- Dropdown menu links -->
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenu2"
+                        style="border-radius: 12px;border:none;">
+
+                        <!-- <center> -->
+                        <button class="dropdown-item" type="button">
+                          <form method="POST" action="/reportGetPost/" class="border-bottom">{% csrf_token %}
+                            {% if data.post %}
+                            <input type="text" name="pic" value="
                     {{data.post.url}}" hidden>
-                    {%endif%}
-                    <input type="text" name="msg" value="{{data.Message}}" hidden>
-                    <input type="text" name="postId" value="{{data.postId}}" hidden>
-                    <span style=""><input type="submit" value = "Report Post" class="ellipsisOption"></span>
+                            {%endif%}
+                            <input type="text" name="msg" value="{{data.Message}}" hidden>
+                            <input type="text" name="postId" value="{{data.postId}}" hidden>
+                            <span style=""><input type="submit" value="Report Post" class="ellipsisOption"></span>
+                          </form>
+
+
+                          {%if userInfo.userId == data.userId%}
+                          <button onclick="deletePost('{{data.postId}}')"
+                            class=" dropdown-item ellipsisOption border-bottom">Delete Post</button>
+                          <button class="dropdown-item ellipsisOption border-bottom" type="button" data-toggle="modal"
+                            data-target="#tagPeopleModel" onclick="tagPeopleFun1('{{data.postId}}')">Tag</button>
+                          {% endif %}
+                          <button class="dropdown-item ellipsisOption border-bottom" type="button"></button>
+                          {%if data.Message %}
+
+                          <span data-toggle="modal" data-target="#searchPostResult"
+                            onclick="liveSearchPostResult('{{data.Message}}')" id="rightSideSearchIcon"
+                            title="Search message Authenticity" class="dropdown-item ellipsisOption border-bottom">
+                            Message Authenticity
+                          </span>
+
+                          <span onclick="SpamTester('{{data.Message}}')"
+                            class="dropdown-item ellipsisOption border-bottom">Spam</span>
+                          {% endif %}
+                        </button>
+                        <!-- </center> -->
+                      </div>
+
+
+                    </div>
+
+
+                    <div><span style="margin-left: 7%; font-size: 70%; margin-top:0; color: black;">
+                        <b>
+                          {% if data.date|date:"YmdHi" == date_now|date:"YmdHi" %}
+                          Just Now
+                          {% elif data.date|date:"Ymd" == date_now|date:"Ymd" %}
+                          {{ data.date|naturaltime }}
+                          {% else %}
+                          {{data.date|date:"M d"}} at {{data.date|date:"h:i A"}}
+                          {% endif %}
+                        </b></span></div>
+                  </span>
+
+
+                  {% if data.Message %}
+                  <p style="color:black; margin-left: 1%;">{{data.Message}}</p>
+                  <input type="hidden" value="{{data.postId}}" id="like">
+                  {% endif %}
+
+                  {% if data.post %}
+                  <img src="{{data.post.url}}" style="max-width:100%;max-height:50vh;height:auto;">
+
+                  {% endif %}
+
+
+
+                  <strong>
+                    <p id="Counter{{data.postId}}" style="padding:8px 0px 0px 8px;font-size:small;">{{data2}} Likes</p>
+                  </strong>
+
+                  <input type="hidden" value="{{data.postId}}" id="postLikeId">
+                  <input type="hidden" value="{{data.userId}}" id="postOwner">
+                  <input type="hidden" value="{{userInfo.userId}}" id="postLiker">
+
+
+                  <a><i class="fas fa-thumbs-up PostResponseLike" id="{{data.postId}}" name="{{data.postId}}"
+                      onclick="postLiker('{{data.postId}}','{{data.userId}}','{{userInfo.userId}}')"
+                      style="color:{{data4}};"></i></a>
+                  <a href="#"><i class="far fa-comment-alt" id="PostResponseComment"></i></a>
+
+
+                  <span id="NewComment{{data.postId}}"></span>
+
+                  <br>
+                  {%if comment3.url%}
+                  <img src="{{comment3.url}}" alt="" style="width:40px;height:40px;border-radius:50%;">
+                  <span style="color: black;" class="font-weight-bold">{{comment2}}</span>
+                  <br>
+                  <span style="color: green; margin-left:45px;">{{comment1}}</span><br>
+                  {%if data.post.url and data.Message%}
+                  <span style="cursor:pointer;" data-toggle="modal" data-target="#seeAllComments"
+                    onclick="seeAllCommentFunction('{{data.postId}}','{{data.post.url}}','{{data.Message}}')"><strong
+                      style="color:grey; ">View all Comments</strong></span>
+                  {%elif data.post.url and not data.Message%}
+                  <span style="cursor:pointer;" data-toggle="modal" data-target="#seeAllComments"
+                    onclick="seeAllCommentFunction('{{data.postId}}','{{data.post.url}}','')"><strong
+                      style="color:grey;">View all Comments</strong></span>
+                  {%else%}
+                  <span style="cursor:pointer;" data-toggle="modal" data-target="#seeAllComments"
+                    onclick="seeAllCommentFunction('{{data.postId}}','','{{data.Message}}')"><strong
+                      style="color:grey;">View all Comments</strong></span>
+                  {%endif%}
+                  {%endif%}
+                  <form class="container-fluid">
+
+                    <div class="row">
+                      <div class="col-lg-1 col-md-1 col-sm-2 col-2">
+                        <img src="{{userInfo.profilePic.url}}"
+                          style="width:50px;height:50px;border-radius:50%;vertical-align: middle;">
+                      </div>
+
+                      <div class="col-lg-9 col-md-8 col-sm-8 col-10">
+                        <input type="text" placeholder="Drop your Comment" id="Comment{{data.postId}}"
+                          class="commentTextBox">
+                      </div>
+
+                      <div class="col-lg-2 col-md-3 col-sm-2 col-12">
+                        <input type="button"
+                          onclick="comments('{{data.postId}}','{{data.userId}}','{{userInfo.userId}}')" value="Comment"
+                          class="submitCommentButton" id="commentSendButtonId">
+                      </div>
+
+                    </div>
+
+
+
                   </form>
-                
+                  <hr>
+                  <br><br>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
 
-                {%if userInfo.userId == data.userId%}
-                <button onclick="deletePost('{{data.postId}}')" class=" dropdown-item ellipsisOption border-bottom">Delete Post</button>
-                <button class="dropdown-item ellipsisOption border-bottom" type="button" data-toggle="modal" data-target="#tagPeopleModel" onclick="tagPeopleFun1('{{data.postId}}')">Tag</button>
-                 {% endif %}
-                <button class="dropdown-item ellipsisOption border-bottom" type="button" ></button>
-                {%if data.Message %}
 
-                  <span data-toggle="modal" data-target="#searchPostResult" onclick="liveSearchPostResult('{{data.Message}}')" id="rightSideSearchIcon" title="Search message Authenticity" class="dropdown-item ellipsisOption border-bottom">
-                  Message Authenticity
-                </span>
 
-                <span onclick="SpamTester('{{data.Message}}')" class="dropdown-item ellipsisOption border-bottom">Spam</span>
-              {% endif %}
+        </div>
+
+
+        <!--Tag Person Model -->
+
+        <!-- Modal -->
+        <div class="modal" id="tagPeopleModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content"
+              style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px); border:none;">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle"
+                  style="color:grey;text-align: center;font-weight:bold;">
+                  <center>Tag People</center>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
                 </button>
-              <!-- </center> -->
               </div>
-              
-                
-              </div>
+              <div class="modal-body">
+                <div id="selectedPeople">
 
-                
-            <div><span style="margin-left: 7%; font-size: 70%; margin-top:0; color: black;">
-            <b>
-                {% if data.date|date:"YmdHi" == date_now|date:"YmdHi" %}
-                Just Now
-                {% elif data.date|date:"Ymd" == date_now|date:"Ymd" %}
-                {{ data.date|naturaltime }}
-                {% else %}
-                {{data.date|date:"M d"}} at {{data.date|date:"h:i A"}}
-                {% endif %}
-            </b></span></div></span>
-
-        
-            {% if data.Message %}
-            <p style="color:black; margin-left: 1%;">{{data.Message}}</p>
-            <input type="hidden" value="{{data.postId}}" id="like">
-            {% endif %}
-          
-            {% if data.post %}
-            <img src="{{data.post.url}}" style="max-width:100%;max-height:50vh;height:auto;">
-            
-            {% endif %}
-            
-
-            
-            <strong><p id="Counter{{data.postId}}" style="padding:8px 0px 0px 8px;font-size:small;">{{data2}} Likes</p></strong>
-            
-            <input type="hidden" value="{{data.postId}}" id="postLikeId">
-            <input type="hidden" value="{{data.userId}}" id="postOwner">
-            <input type="hidden" value="{{userInfo.userId}}" id="postLiker">
-
-            
-            <a><i class="fas fa-thumbs-up PostResponseLike" id="{{data.postId}}" name="{{data.postId}}" onclick="postLiker('{{data.postId}}','{{data.userId}}','{{userInfo.userId}}')" style="color:{{data4}};"></i></a>
-            <a href="#"><i class="far fa-comment-alt" id="PostResponseComment"></i></a>
-            
-
-            <span id="NewComment{{data.postId}}"></span>
-            
-            <br>
-            {%if comment3.url%}
-            <img src="{{comment3.url}}" alt="" style="width:40px;height:40px;border-radius:50%;">
-            <span style="color: black;" class="font-weight-bold">{{comment2}}</span>
-            <br>
-            <span style="color: green; margin-left:45px;">{{comment1}}</span><br>
-            {%if data.post.url and data.Message%}
-            <span style="cursor:pointer;" data-toggle="modal" data-target="#seeAllComments" onclick="seeAllCommentFunction('{{data.postId}}','{{data.post.url}}','{{data.Message}}')"><strong style="color:grey; ">View all Comments</strong></span>
-            {%elif data.post.url and not data.Message%}
-            <span style="cursor:pointer;" data-toggle="modal" data-target="#seeAllComments" onclick="seeAllCommentFunction('{{data.postId}}','{{data.post.url}}','')"><strong style="color:grey;">View all Comments</strong></span>
-            {%else%}
-            <span  style="cursor:pointer;" data-toggle="modal" data-target="#seeAllComments" onclick="seeAllCommentFunction('{{data.postId}}','','{{data.Message}}')"><strong style="color:grey;">View all Comments</strong></span>
-            {%endif%}
-            {%endif%}
-            <form class="container-fluid">
-
-              <div class="row">
-                <div class="col-lg-1 col-md-1 col-sm-2 col-2">
-                  <img src="{{userInfo.profilePic.url}}" style="width:50px;height:50px;border-radius:50%;vertical-align: middle;">
                 </div>
 
-                <div class="col-lg-9 col-md-8 col-sm-8 col-10">
-                  <input type="text" placeholder="Drop your Comment"  id="Comment{{data.postId}}" class="commentTextBox">
+                <input type="text" class="form-control" oninput="tagFriendPeopleTextBox()" id="tagFriendsTextBoxId"
+                  placeholder="Friend name">
+                <div class="spinner-border" role="status" id="tagLoader" style="display: none;">
+                  <span class="sr-only">Loading...</span>
                 </div>
 
-                <div class="col-lg-2 col-md-3 col-sm-2 col-12">
-                  <input type="button" onclick="comments('{{data.postId}}','{{data.userId}}','{{userInfo.userId}}')" value="Comment"  class="submitCommentButton" id="commentSendButtonId">
-                </div>
+                <div id="tagPeoplenameArea">
 
+                </div>
               </div>
-              
-              
-              
-            </form><hr>
-            <br><br>
+              <div class="modal-footer">
+                <button class="closeBtnClass" data-dismiss="modal">Close</button>
+                <button class="openBtnClass" onclick="TagSubmissionForm()">Tag</button>
+              </div>
+            </div>
           </div>
-            {% endfor %}
+        </div>
+
+
+        <!--Post Tag Person-->
+        <!-- Small modal -->
+
+
+        <div class="modal AllTagPersonList" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-sm modal-dialog-centered">
+
+            <div class="modal-content"
+              style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
+              <span aria-hidden="true" class="close float-sm-right" data-dismiss="modal" aria-label="Close"
+                style="margin-left:90%;margin-top:2%;color:grey;">&times;</span>
+
+              <h5 class="" style="color:rgba(0,150,136,0.8);">Tag Person</h5>
+
+              <hr>
+              <div id="AllTagPersonListId"></div>
+            </div>
           </div>
-      </div>
-      
-
-
-</div>
-
-
-<!--Tag Person Model -->
-
-<!-- Modal -->
-<div class="modal" id="tagPeopleModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-    <div class="modal-content" style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px); border:none;">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalScrollableTitle" style="color:grey;text-align: center;font-weight:bold;"><center>Tag People</center></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id="selectedPeople">
-          
         </div>
 
-        <input type="text" class="form-control" oninput="tagFriendPeopleTextBox()" id="tagFriendsTextBoxId" placeholder="Friend name">
-        <div class="spinner-border" role="status" id="tagLoader" style="display: none;">
-          <span class="sr-only">Loading...</span>
+
+
+
+        <!--see all Comments-->
+        <!-- Button trigger modal -->
+
+        <!-- Modal -->
+        <div class="modal" id="seeAllComments" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content"
+              style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"
+                  style="color:grey;text-align: center;font-weight:bold;">All Comments</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div id="seeAllCommentsIdDiv"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="closeBtnClass" data-dismiss="modal">Close</button>
+
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div id="tagPeoplenameArea">
+        <!--Start Modal for Top Account-->
+        <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document" style="">
+            <div class="modal-content" id="accountRightSectionPlaceModel"
+              style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color:grey;text-align: center;font-weight:bold;">
+                  Account Setting</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" style="color:rgba(0, 150, 136, 1);text-align:center;">
+                <a href="/changepassword/" style="color:rgba(0,125,136,1);">
+                  <h5>Change Password</h5>
+                </a>
+                <hr>
+                <a href="/notifications/" style="color:rgba(0,125,136,1);">
+                  <h5>Notification</h5>
+                </a>
+                <hr>
+                <h5 onclick="Mode()" id="modeId" style="cursor:pointer;">Night Mode</h5>
+                <hr>
+                <a href="/logout/" style="color:rgba(0,125,136,1);">
+                  <h5>Logout</h5>
+                </a>
+                <hr>
+                <h5 data-dismiss="modal" style="cursor:pointer;">Cancel</h5>
+              </div>
 
+            </div>
+          </div>
         </div>
-      </div> 
-      <div class="modal-footer">
-        <button  class="closeBtnClass" data-dismiss="modal">Close</button>
-        <button  class="openBtnClass" onclick="TagSubmissionForm()">Tag</button>
+        <!-- CloseModal for Top Account-->
+
       </div>
+
     </div>
+
+
+    </span></span></a>
   </div>
-</div>
-
-
-<!--Post Tag Person-->
-<!-- Small modal -->
-
-
-<div class="modal AllTagPersonList" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
-    
-    <div class="modal-content"  style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
-        <span aria-hidden="true" class="close float-sm-right" data-dismiss="modal" aria-label="Close" style="margin-left:90%;margin-top:2%;color:grey;">&times;</span>
-
-        <h5 class="" style="color:rgba(0,150,136,0.8);">Tag Person</h5>
-        
-        <hr>
-        <div id="AllTagPersonListId"></div>
-    </div>
   </div>
-</div>
-
-
-
-
-<!--see all Comments-->
-<!-- Button trigger modal -->
-
-<!-- Modal -->
-<div class="modal" id="seeAllComments" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content" style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle" style="color:grey;text-align: center;font-weight:bold;">All Comments</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id="seeAllCommentsIdDiv"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="closeBtnClass" data-dismiss="modal">Close</button>
-        
-      </div>
-    </div>
   </div>
-</div>
-
-<!--Start Modal for Top Account-->
-<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document" style="">
-    <div class="modal-content" id="accountRightSectionPlaceModel"   style="color:grey;border-radius: 25px;background-color:rgba(1,1,1,0.2);opacity:0.8;backdrop-filter: blur(5px);">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel" style="color:grey;text-align: center;font-weight:bold;">Account Setting</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="color:rgba(0, 150, 136, 1);text-align:center;">
-        <a href="/changepassword/" style="color:rgba(0,125,136,1);"><h5>Change Password</h5></a><hr>
-        <a href="/notifications/" style="color:rgba(0,125,136,1);"><h5>Notification</h5></a><hr>
-        <h5 onclick="Mode()" id="modeId" style="cursor:pointer;">Night Mode</h5><hr>
-        <a href="/logout/" style="color:rgba(0,125,136,1);"><h5>Logout</h5></a><hr>
-        <h5 data-dismiss="modal" style="cursor:pointer;">Cancel</h5>
-      </div>
-      
-    </div>
   </div>
-</div>
-<!-- CloseModal for Top Account-->
-
-</div>
-
-</div>
-
-
-</span></span></a></div></div></div></div></div></div></div>
+  </div>
+  </div>
+  </div>
 </body>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="{%static 'js/script1.js'%}"></script>
 <script type="text/javascript" src="{%static 'js/notifications.js' %}"></script>

@@ -1,192 +1,202 @@
 {% load static %}
 <!DOCTYPE html>
-<html>  
+<html>
+
 <head>
   <link rel="icon" href="{%static 'images/LetsChat_Icon.png'%}" type="image/x-icon">
   <title>Notifications</title>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="{%static 'css/notifications.css'%}">
   <link rel="stylesheet" type="text/css" href="{%static 'css/customScrollBar.css'%}">
+  <link rel="stylesheet" href="{% static 'css/selection.css' %}">
   <!-- <script>
     console.log(localStorage.getItem("loggedUserID"));
         console.log(localStorage.getItem("loggedUser"));
         console.log(localStorage.getItem("loggedUserPic"));
   </script> -->
 </head>
-<body id="wholeBody">
-<div class="header-container">
-  <header id="header">
-    <div class="heading">
-      <div class="container">
-        <span id="brandSection"><a href="/"><span id="brand">LetsChat</span></a></span>
-      </div>
-    </div>
-  </header>
-</div>
 
-<br><br><br><br>
+<body id="wholeBody">
+  <div class="header-container">
+    <header id="header">
+      <div class="heading">
+        <div class="container">
+          <span id="brandSection"><a href="/"><span id="brand">LetsChat</span></a></span>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <br><br><br><br>
 
   <input type="hidden" value="{{userProfile}}" id="profile">
   <input type="hidden" value="{{userProfile}}" id="currentUserId">
   <input type="hidden" value="Add Friend" id="addbtn">
   <!-- <input type="hidden" id="currentUserId" name="currentUserId" value="{{currentUserId}}"> -->
 
-<div class="container">
-<h4><strong id="pageTitle">Notifications</strong></h4>
-<section id="wrapper">
+  <div class="container">
+    <h4><strong id="pageTitle">Notifications</strong></h4>
+    <section id="wrapper">
 
-<div class="tab">
+      <div class="tab">
 
-  <button class="tablinks" onclick="openCity(event, 'All')">All</button>
-  <button class="tablinks" onclick="openCity(event, 'friendRequests')">Friend Requests</button>
-  
-</div>
+        <button class="tablinks" onclick="openCity(event, 'All')">All</button>
+        <button class="tablinks" onclick="openCity(event, 'friendRequests')">Friend Requests</button>
 
-<div id="friendRequests" class="tabcontent">
-  <!-- <h5>Friend Requests</h5> -->
-
-  <div class="notificationSect">
-      <span class="NotificationNotes" id="NotificationNotes"></span> <p >
-    {% for data,data2 in request %}
-    {{data.userProfile}}
-    <input type="hidden" id="profile" name="profileId" value="{{data.userName}}">
-    <div id="user{{data.sender}}">
-     <img src="{{data2}}" class="profilePic">
-      </p>
-      <div style="margin-left: 8%; margin-top: -20px;">
-      <input type="button" onclick="addrequest('{{data.sender}}');" name="" value="Confirm" id="add">
-          <input type="button" onclick="addrequest();" name="" value="Ignore" id="ignore">
       </div>
-        <hr>
-    </div>
-    <!-- <div id="{{data.senderId}}">
+
+      <div id="friendRequests" class="tabcontent">
+        <!-- <h5>Friend Requests</h5> -->
+
+        <div class="notificationSect">
+          <span class="NotificationNotes" id="NotificationNotes"></span>
+          <p>
+            {% for data,data2 in request %}
+            {{data.userProfile}}
+            <input type="hidden" id="profile" name="profileId" value="{{data.userName}}">
+          <div id="user{{data.sender}}">
+            <img src="{{data2}}" class="profilePic">
+            </p>
+            <div style="margin-left: 8%; margin-top: -20px;">
+              <input type="button" onclick="addrequest('{{data.sender}}');" name="" value="Confirm" id="add">
+              <input type="button" onclick="addrequest();" name="" value="Ignore" id="ignore">
+            </div>
+            <hr>
+          </div>
+          <!-- <div id="{{data.senderId}}">
       You and {{data.senderName}} are now Friends.
     </div> -->
-    {% endfor %}
+          {% endfor %}
+        </div>
+
+      </div>
+
+
+      <div id="All" class="tabcontent">
+        <!-- <h5>All</h5> -->
+        <div class="notificationSect">
+          <p id="allNotifications"></p>
+          {% for data3,data4 in notification %}
+          {% if data3.notificationType == "friend" %}
+
+          <div id="{{data.sender}}" class="notificationBoxClass">
+            <a href="/profile/{{data3.sender}}"
+              style="color:#fff;text-decoration: none;font-size: large;padding-left: 2%;">
+              <img src="{{data4}}" class="profilePic" style="margin:12px;">
+              <span class="notificationtextId">
+                {{data3.notification}}
+              </span>
+            </a>
+            <div style="margin-left: 8%; margin-top: -20px;">
+            </div>
+
+          </div>
+
+
+          {%else%}
+
+          <div id="{{data.sender}}" class="notificationBoxClass">
+            <a href="/showPost/{{data3.postId}}"
+              style="color:#fff;text-decoration: none;font-size: large;padding-left: 2%;">
+              <img src="{{data4}}" class="profilePic" style="margin:12px;">
+              <span class="notificationtextId">
+                {{data3.notification}}
+              </span>
+            </a>
+            <div style="margin-left: 8%; margin-top: -20px;">
+            </div>
+
+          </div>
+          {% endif %}
+
+
+          <hr>
+          {% endfor %}
+
+        </div>
+      </div>
+
+
+    </section>
   </div>
 
-</div>
-
-
-<div id="All" class="tabcontent">
-  <!-- <h5>All</h5> -->
-  <div class="notificationSect">
-    <p id="allNotifications"></p>
-    {% for data3,data4 in notification %}
-    {% if data3.notificationType == "friend" %}
-
-    <div id="{{data.sender}}" class="notificationBoxClass">
-      <a href="/profile/{{data3.sender}}" style="color:#fff;text-decoration: none;font-size: large;padding-left: 2%;">
-      <img src="{{data4}}" class="profilePic"style="margin:12px;">
-        <span class="notificationtextId">
-          {{data3.notification}}
-        </span>
-      </a>
-      <div style="margin-left: 8%; margin-top: -20px;">
-      </div>
-      
-    </div>
-    
-
-    {%else%}
-
-    <div id="{{data.sender}}" class="notificationBoxClass">
-      <a href="/showPost/{{data3.postId}}" style="color:#fff;text-decoration: none;font-size: large;padding-left: 2%;">
-      <img src="{{data4}}" class="profilePic"style="margin:12px;">
-        <span class="notificationtextId">
-          {{data3.notification}}
-        </span>
-      </a>
-      <div style="margin-left: 8%; margin-top: -20px;">
-      </div>
-      
-    </div>
-    {% endif %}
-
-
-    <hr>
-    {% endfor %}
-  	
-  </div>
-</div>
-
-
-</section>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="{%static 'js/notifications.js' %}"></script>
-<script type="text/javascript" src="{%static 'js/RequestSocket.js'%}"></script>
-<script type="text/javascript" src="{%static 'js/CommentSocket.js'%}"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="{%static 'js/notifications.js' %}"></script>
+  <script type="text/javascript" src="{%static 'js/RequestSocket.js'%}"></script>
+  <script type="text/javascript" src="{%static 'js/CommentSocket.js'%}"></script>
 
 
 
-<script type="text/javascript">
-  //Night Mode
-  //Night Mode
-function getCookie(){
-  var nameEQ = "Mode" + "=";
+  <script type="text/javascript">
+    //Night Mode
+    //Night Mode
+    function getCookie() {
+      var nameEQ = "Mode" + "=";
       var ca = document.cookie.split(';');
-      for(var i=0;i < ca.length;i++) {
-          var c = ca[i];
-          while (c.charAt(0)==' ') c = c.substring(1,c.length);
-          if (c.indexOf(nameEQ) == 0) {
-            return c.substring(nameEQ.length,c.length)
-            
-          }
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) {
+          return c.substring(nameEQ.length, c.length)
+
+        }
       }
-  
-  }  
+
+    }
 
 
-  function autoMode(){
-    v=getCookie();
-     
-      if(v=="darkMode"){
-        
-        nightMode(); 
+    function autoMode() {
+      v = getCookie();
+
+      if (v == "darkMode") {
+
+        nightMode();
       }
-      
-      else{
-        
+
+      else {
+
         dayMode();
       }
-     
-  }  
-      
-function nightMode()
-{        
-  
-  document.getElementById("header").style.backgroundColor="black";  
-  document.getElementById("header").style.boxShadow="0px 0px 23px 0px rgba(0, 150, 136, 1)";
 
-  document.getElementById("wholeBody").style.backgroundColor="black";
-  
+    }
 
-  document.getElementById("wrapper").style.boxShadow="0px 0px 23px 0px rgba(0, 150, 136, 1)";
+    function nightMode() {
 
-  document.getElementById("wrapper").style.color="grey";
-  document.getElementById("pageTitle").style.borderBottom="2px solid grey";
-}
+      document.getElementById("header").style.backgroundColor = "black";
+      document.getElementById("header").style.boxShadow = "0px 0px 23px 0px rgba(0, 150, 136, 1)";
 
-function dayMode()
-{
-  var items=document.getElementsByClassName("notificationtextId");
-  for(i=0;i<items.length;i++)
-  {
-    items[i].style.color="grey";
-  }
-}
+      document.getElementById("wholeBody").style.backgroundColor = "black";
 
-  autoMode();
 
-  
-</script>
+      document.getElementById("wrapper").style.boxShadow = "0px 0px 23px 0px rgba(0, 150, 136, 1)";
+
+      document.getElementById("wrapper").style.color = "grey";
+      document.getElementById("pageTitle").style.borderBottom = "2px solid grey";
+    }
+
+    function dayMode() {
+      var items = document.getElementsByClassName("notificationtextId");
+      for (i = 0; i < items.length; i++) {
+        items[i].style.color = "grey";
+      }
+    }
+
+    autoMode();
+
+
+  </script>
 </body>
+
 </html>
