@@ -348,6 +348,7 @@ function storyTextFieldAreaPlace()
   {
     storyTextFieldArea();
     document.getElementById("storyTextFieldArea").value=v.slice(0,100);
+    document.getElementById("storyPrintSectionArea").innerHTML=v.slice(0,100);
   }
   else{
     storyTextFieldArea2();
@@ -355,3 +356,22 @@ function storyTextFieldAreaPlace()
   }
 }
   
+
+
+// Random Quotes
+const getQuotes=async()=> {
+  const api="https://type.fit/api/quotes";
+  try{
+    let data=await fetch(api);
+    let realdata=await data.json();
+
+    randomdata=Math.floor(Math.random()*realdata.length)
+    console.log(realdata[randomdata]["text"]);
+    document.getElementById("storyTextFieldArea").value=realdata[randomdata]["text"];
+    //document.getElementById("storyPrintSectionArea").innerHTML=realdata[randomdata]["text"];
+    storyTextFieldAreaPlace();
+  }catch(error){
+    console.log(error);
+  }
+};
+getQuotes();
