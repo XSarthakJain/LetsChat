@@ -12,11 +12,7 @@
   <link rel="stylesheet" type="text/css" href="{%static 'css/notifications.css'%}">
   <link rel="stylesheet" type="text/css" href="{%static 'css/customScrollBar.css'%}">
   <link rel="stylesheet" href="{% static 'css/selection.css' %}">
-  <!-- <script>
-    console.log(localStorage.getItem("loggedUserID"));
-        console.log(localStorage.getItem("loggedUser"));
-        console.log(localStorage.getItem("loggedUserPic"));
-  </script> -->
+  
 </head>
 
 <body id="wholeBody">
@@ -35,7 +31,7 @@
   <input type="hidden" value="{{userProfile}}" id="profile">
   <input type="hidden" value="{{userProfile}}" id="currentUserId">
   <input type="hidden" value="Add Friend" id="addbtn">
-  <!-- <input type="hidden" id="currentUserId" name="currentUserId" value="{{currentUserId}}"> -->
+  
 
   <div class="container">
     <h4><strong id="pageTitle">Notifications</strong></h4>
@@ -49,7 +45,7 @@
       </div>
 
       <div id="friendRequests" class="tabcontent">
-        <!-- <h5>Friend Requests</h5> -->
+  
 
         <div class="notificationSect">
           <span class="NotificationNotes" id="NotificationNotes"></span>
@@ -66,9 +62,7 @@
             </div>
             <hr>
           </div>
-          <!-- <div id="{{data.senderId}}">
-      You and {{data.senderName}} are now Friends.
-    </div> -->
+          
           {% endfor %}
         </div>
 
@@ -76,7 +70,7 @@
 
 
       <div id="All" class="tabcontent">
-        <!-- <h5>All</h5> -->
+        
         <div class="notificationSect">
           <p id="allNotifications"></p>
           {% for data3,data4 in notification %}
@@ -141,7 +135,7 @@
 
   <script type="text/javascript">
     //Night Mode
-    //Night Mode
+    
     function getCookie() {
       var nameEQ = "Mode" + "=";
       var ca = document.cookie.split(';');
